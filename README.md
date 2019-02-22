@@ -1,5 +1,8 @@
 # CS353-Database-Systems-Project
-Online Technical Interview Preparation and Coding Platform
+
+## Project Description
+
+### Online Technical Interview Preparation and Coding Platform
 
 We are designing a system where users prepare for technical job interviews. There are users,
 editors and companies. Editors prepares both coding challenges, coding contests and non-coding
@@ -9,3 +12,10 @@ process. Both challenges and questions should have categories such as dynamic pr
 and system design respectively.
 
 This project is being developed for CS353 - Database Systems course at Bilkent University.
+
+## Team Members
+
+- Pinar Ayaz
+- Merve Kilicarslan
+- Baris Can
+- Simge Er
