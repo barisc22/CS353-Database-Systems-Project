@@ -1,4 +1,4 @@
-# CS353-Database-Systems-Project
+# CodeInt
 
 ## Project Description
 
