@@ -11,13 +11,16 @@ if(isset($_POST['submit'])){
 
             $sql = "SELECT id FROM general_user WHERE username = '$username'";
             $result = mysqli_query($con, $sql);
-            $c_id = mysqli_fetch_assoc($result);
+            while($row = mysqli_fetch_assoc($result)) {
+                $c_id = $row["id"];
+            }
 
             $user_id = $_SESSION['Id'];
-
+            
             $sql = "INSERT INTO applies VALUES ('$user_id', '$c_id', '$job_title', 'CVBOK')";
             $result = mysqli_query($con, $sql);
         }
+
     }
     else{
         echo "<b>No selection.</b>";
