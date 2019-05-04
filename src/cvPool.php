@@ -10,11 +10,13 @@ if(isset($_POST['submit'])){
             $job_title = $pieces[1];
 
             $sql = "SELECT id FROM general_user WHERE username = '$username'";
-            $c_id = mysqli_fetch_assoc($sql);
+            $result = mysqli_query($con, $sql);
+            $c_id = mysqli_fetch_assoc($result);
 
             $user_id = $_SESSION['id'];
 
             $sql = "INSERT INTO applies VALUES ('$user_id', '$c_id', '$job_title', 'CVBOK')";
+            $result = mysqli_query($con, $sql);
         }
     }
     else{
