@@ -13,7 +13,7 @@ if(isset($_POST['submit'])){
             $result = mysqli_query($con, $sql);
             $c_id = mysqli_fetch_assoc($result);
 
-            $user_id = $_SESSION['id'];
+            $user_id = $_SESSION['Id'];
 
             $sql = "INSERT INTO applies VALUES ('$user_id', '$c_id', '$job_title', 'CVBOK')";
             $result = mysqli_query($con, $sql);
