@@ -115,7 +115,7 @@ public class CreateTables {
             st.executeUpdate("CREATE TABLE contest_question(\n" +
                     "   challenge_id INT NOT NULL,\n" +
                     "   contest_id INT NOT NULL,\n" +
-                    "   PRIMARY KEY (challenge_id),\n" +
+                    "   PRIMARY KEY (challenge_id, contest_id),\n" +
                     "   FOREIGN KEY (challenge_id) REFERENCES coding_challenge (challenge_id) ON DELETE CASCADE ON UPDATE CASCADE,\n" +
                     "   FOREIGN KEY (contest_id) REFERENCES coding_contest (contest_id) ON DELETE CASCADE ON UPDATE CASCADE\n" +
                     "   ) ENGINE=InnoDB;");
