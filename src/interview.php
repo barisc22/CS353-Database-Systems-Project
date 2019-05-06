@@ -101,12 +101,6 @@ if(isset($_POST['solution'])){
 	<form method = "post">
 
 	<div class="center" align="center">
-	 <select onchange="location = this.value;">
-	 <option value="contest.php">Contest</option>
-	  <option value="prepare_question.php">Challenge</option>
-	  <option value="noncoding.php">NonCoding</option>
-	</select> 
-
 	<select name = "difficulty">
 	 <option value="difficulty">Select Difficulty</option>
 	  <option value="easy">Easy</option>
@@ -122,19 +116,29 @@ if(isset($_POST['solution'])){
 	  <option value="c3">C3</option>
 	  <option value="c4">C4</option>
 	</select> 
+
+	<select name = "question_count">
+	 <option value="question_count">Select Question Count</option>
+	  <option value="one">1</option>
+	  <option value="two">2</option>
+	  <option value="three">3</option>
+	  <option value="four">4</option>
+	</select> 
 </div>
 
-	Start Date:<input class="w3-input w3-border w3-padding w3-round-xxlarge" name= "start_date" type="date" style="width: 15%; height: 20; margin-top : -2%; margin-left: 7%;">
+	Duration:<input class="w3-input w3-border w3-padding w3-round-xxlarge" name= "duration" type="text" style="width: 15%; height: 20; margin-top : -2%; margin-left: 7%;">
 
-	End Date:<input class="w3-input w3-border w3-padding w3-round-xxlarge" name = "end_date" type="date" style="width: 15%; height: 20; margin-top : -2%; margin-left: 7%;">
+	Start Date:<input class="w3-input w3-border w3-padding w3-round-xxlarge" name= "start_date" type="date" style="width: 15%; height: 20; margin-top : -1%; margin-left: 7%;">
 
-	<input class="w3-input w3-border w3-padding w3-round-xxlarge" name="title" type="text" placeholder="Title" id="title" style="width: 40%; height: 20; margin-left: 15%; margin-top: 1%;">
+	End Date:<input class="w3-input w3-border w3-padding w3-round-xxlarge" name = "end_date" type="date" style="width: 15%; height: 20; margin-top : -1%; margin-left: 7%;">
 
-	<input class="w3-input w3-border w3-padding w3-round-xxlarge" name="question" type="text" placeholder="Question" id="question" style="width: 40%; height: 150px; margin-left: 15%;">
+	<input class="w3-input w3-border w3-padding w3-round-xxlarge" name="title" type="text" placeholder="Title" id="title" style="width: 40%; height: 20; margin-left: 15%;">
 
-	<input class="w3-input w3-border w3-padding w3-round-xxlarge" name = "test_case" type="text" placeholder="Test Cases" id="test_cases" style="width: 40%; height: 140px; margin-left: 15%; margin-top: 0%;">
+	<input class="w3-input w3-border w3-padding w3-round-xxlarge" name="question" type="text" placeholder="Question" id="question" style="width: 40%; height: 130px; margin-left: 15%;">
 
-	<input class="w3-input w3-border w3-padding w3-round-xxlarge" name = "solution" type="text" placeholder="Solution" id="solution" style="width: 40%; height: 150px; margin-left: 15%; margin-top: 0%;">
+	<input class="w3-input w3-border w3-padding w3-round-xxlarge" name = "test_case" type="text" placeholder="Test Cases" id="test_cases" style="width: 40%; height: 130px; margin-left: 15%; margin-top: 0%;">
+
+	<input class="w3-input w3-border w3-padding w3-round-xxlarge" name = "solution" type="text" placeholder="Solution" id="solution" style="width: 40%; height: 130px; margin-left: 15%; margin-top: 0%;">
 
 	<input class="w3-button w3-purple w3-round-large" type="submit" name = "bok" value = "Save" style="width: 5%; height: 30px; margin-left: 55%; 
 	  margin-top: -5%;">
