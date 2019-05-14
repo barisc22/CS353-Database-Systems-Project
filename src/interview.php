@@ -1,16 +1,5 @@
 <?php
 include "config.php";
-	if(isset($_POST['add'])){
-		echo "<form action=\"\">
-	<label for=\"question_title\" id=\"example1\" style=\"width: 45%; height: 200px; margin-left: 15%;\">Question Title</label>
-	<input class=\"w3-input w3-border w3-padding w3-round-xxlarge\" name=\"name\" type=\"text\" placeholder=\"Question\" id=\"question\" style=\"width: 40%; height: 200px; margin-left: 15%;\">
-
-	 <input class=\"w3-input w3-border w3-padding w3-round-xxlarge\" type=\"text\" placeholder=\"Test Cases\" id=\"test_cases\" style=\"width: 40%; height: 200px; margin-left: 15%; margin-top: 0%;\">
-
-	<input class=\"w3-button w3-purple w3-round-large\" type=\"submit\" value = \"Save\" style=\"width: 5%; height: 30px; margin-left: 55%; 
-	  margin-top: -5%;\">
-	 </form>";
-	}
 if(isset($_POST['solution'])){
 	$solution =  $_POST['solution'];
 	echo "Solution";
@@ -19,46 +8,124 @@ if(isset($_POST['solution'])){
 		$category =  $_POST['category'];
 		echo "Category";
 
-		if(isset($_POST['start_date']) && isset($_POST['end_date'])){
-			$start_date =  $_POST['start_date'];
-			$end_date =  $_POST['end_date'];
-			echo "Start";
+		if(isset($_POST['duration'])){
+			$duration =  $_POST['duration'];
+			echo "$duration";
 
-			if(isset($_POST['title'])){
-				$title =  $_POST['title'];
-				echo "Title";
+			if(isset($_POST['start_date']) && isset($_POST['end_date'])){
+				$start_date =  $_POST['start_date'];
+				$end_date =  $_POST['end_date'];
+				echo "$start_date";
 
-				if(isset($_POST['difficulty'])){
-					$difficulty =  $_POST['difficulty'];
-					echo "Difficulty";
+				if(isset($_POST['title'])){
+					$title =  $_POST['title'];
+					echo "Title";
 
-					if(isset($_POST['bok'])){
-						echo "Hop";
-						$question = $_POST['question'];
-						$test_case = $_POST['test_case'];
-						$sql = "INSERT INTO coding_contest VALUES (0, '$start_date', $end_date, '$title')";
-				        $result = mysqli_query($con, $sql);
-				       	echo $result;
+					if(isset($_POST['difficulty'])){
+						$difficulty =  $_POST['difficulty'];
+						echo "Difficulty";
 
-				       	$sql = "INSERT INTO coding_challenge VALUES (0, 24, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
-				        $result = mysqli_query($con, $sql);
-				        echo $result;
+						if(isset($_POST['type'])){
+							$type = $_POST['type'];
+							echo "Type";
 
-				       	$sql = "SELECT challenge_id  FROM coding_challenge WHERE challenge_id =(SELECT max(challenge_id) FROM coding_challenge)";
-				        $result = mysqli_query($con, $sql);
-						$row = mysqli_fetch_assoc($result);
-						$challenge_id = implode(",", $row);
-						echo $challenge_id;
+							if(isset($_POST['add'])){
+								echo "Hop";
+								$question = $_POST['question'];
+								$test_case = $_POST['test_case'];
+								$sql = "INSERT INTO interview VALUES (0, 2, 'Hop', 'Bok', '$start_date', $end_date, '$duration')";
+						        $result = mysqli_query($con, $sql);
+						        echo "Interview";
+						       	echo $result;
 
-						$sql = "SELECT contest_id   FROM coding_contest WHERE contest_id  =(SELECT max(contest_id) FROM coding_contest)";
-				        $result = mysqli_query($con, $sql);
-						$row = mysqli_fetch_assoc($result);
-						$contest_id = implode(",", $row);
-						echo $contest_id;
+						       	$sql = "INSERT INTO coding_challenge VALUES (0, 1, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
+						        $result = mysqli_query($con, $sql);
+						        echo "Challange";
+						        echo $result;
 
-				       	$sql = "INSERT INTO contest_question VALUES ('$challenge_id', '$contest_id')";
-				        $result = mysqli_query($con, $sql);
-				        echo $result;						
+						     	$sql = "SELECT interview_id  FROM interview WHERE interview_id =(SELECT max(interview_id) FROM interview)";
+						        $result = mysqli_query($con, $sql);
+								$row = mysqli_fetch_assoc($result);
+								$interview_id = implode(",", $row);
+								echo "First:";
+								echo $interview_id;
+								$interview_id = (int)$interview_id;
+								$interview_id = $interview_id - 1;
+								echo $interview_id;
+								//echo "<p class='paragraph $interview_id'></p>";
+
+						       	$sql = "SELECT challenge_id  FROM coding_challenge WHERE challenge_id =(SELECT max(challenge_id) FROM coding_challenge)";
+						        $result = mysqli_query($con, $sql);
+								$row = mysqli_fetch_assoc($result);
+								$challenge_id = implode(",", $row);
+								echo $challenge_id;
+
+								$sql = "SELECT question_id   FROM noncoding_question WHERE question_id  =(SELECT max(question_id) FROM noncoding_question)";
+						        $result = mysqli_query($con, $sql);
+								$row = mysqli_fetch_assoc($result);
+								$question_id = implode(",", $row);
+								echo $question_id;
+
+						        if($type == "challenge"){
+						        	echo "Bok2";
+							       	$sql = "INSERT INTO consist_of VALUES ('$interview_id', '$challenge_id')";
+							        $result = mysqli_query($con, $sql);
+							        echo $result;
+
+						        }else{
+						        	echo "Bok3";
+							       	$sql = "INSERT INTO includes VALUES ('$interview_id', '$question_id')";
+							        $result = mysqli_query($con, $sql);
+							        echo $result;
+						        }
+
+							}else if(isset($_POST['bok'])){
+								echo "Bok";
+								$question = $_POST['question'];
+								$test_case = $_POST['test_case'];
+								$sql = "INSERT INTO interview VALUES (0, 2, 'Hop', 'Bok', '$start_date', $end_date, '$duration')";
+						        $result = mysqli_query($con, $sql);
+						        echo "Interview";
+						       	echo $result;
+
+						       	$sql = "INSERT INTO coding_challenge VALUES (0, 1, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
+						        $result = mysqli_query($con, $sql);
+						        echo "Challange";
+						        echo $result;
+
+						     	$sql = "SELECT interview_id  FROM interview WHERE interview_id =(SELECT max(interview_id) FROM interview)";
+						        $result = mysqli_query($con, $sql);
+								$row = mysqli_fetch_assoc($result);
+								$interview_id = implode(",", $row);
+
+								//echo "<p class='paragraph $interview_id'></p>";
+
+						       	$sql = "SELECT challenge_id  FROM coding_challenge WHERE challenge_id =(SELECT max(challenge_id) FROM coding_challenge)";
+						        $result = mysqli_query($con, $sql);
+								$row = mysqli_fetch_assoc($result);
+								$challenge_id = implode(",", $row);
+								echo $challenge_id;
+
+								$sql = "SELECT question_id   FROM noncoding_question WHERE question_id  =(SELECT max(question_id) FROM noncoding_question)";
+						        $result = mysqli_query($con, $sql);
+								$row = mysqli_fetch_assoc($result);
+								$question_id = implode(",", $row);
+								echo $question_id;
+
+						        if($type == "challenge"){
+						        	echo "Bok2";
+							       	$sql = "INSERT INTO consist_of VALUES ('$interview_id', '$challenge_id')";
+							        $result = mysqli_query($con, $sql);
+							        echo $result;
+
+						        }else{
+						        	echo "Bok3";
+							       	$sql = "INSERT INTO includes VALUES ('$interview_id', '$question_id')";
+							        $result = mysqli_query($con, $sql);
+							        echo $result;
+						        }
+						    }
+						}
 					}
 				}
 			}
@@ -66,6 +133,7 @@ if(isset($_POST['solution'])){
 	}
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -100,7 +168,16 @@ if(isset($_POST['solution'])){
 
 	<form method = "post">
 
+
+
 	<div class="center" align="center">
+
+	<select name = "type">
+	 <option value="type">Select Question Type</option>
+	  <option value="challenge">Challenge</option>
+	  <option value="nc">Non Coding Question</option>
+	</select> 
+
 	<select name = "difficulty">
 	 <option value="difficulty">Select Difficulty</option>
 	  <option value="easy">Easy</option>
@@ -124,8 +201,9 @@ if(isset($_POST['solution'])){
 	  <option value="three">3</option>
 	  <option value="four">4</option>
 	</select> 
-</div>
+	</div>
 
+	
 	Duration:<input class="w3-input w3-border w3-padding w3-round-xxlarge" name= "duration" type="text" style="width: 15%; height: 20; margin-top : -2%; margin-left: 7%;">
 
 	Start Date:<input class="w3-input w3-border w3-padding w3-round-xxlarge" name= "start_date" type="date" style="width: 15%; height: 20; margin-top : -1%; margin-left: 7%;">
@@ -140,21 +218,9 @@ if(isset($_POST['solution'])){
 
 	<input class="w3-input w3-border w3-padding w3-round-xxlarge" name = "solution" type="text" placeholder="Solution" id="solution" style="width: 40%; height: 130px; margin-left: 15%; margin-top: 0%;">
 
-	<input class="w3-button w3-purple w3-round-large" type="submit" name = "bok" value = "Save" style="width: 5%; height: 30px; margin-left: 55%; 
-	  margin-top: -5%;">
-	</form>
-<!--
-	<form method = "post" style="width: 20%; height: 30px; margin-left: 60%; margin-top: -30%;">
+	<input class="w3-button w3-purple w3-round-large" type="submit" name = "bok" value = "Save" style="width: 5%; height: 30px; margin-left: 55%; margin-top: -5%;">
 
-	Start Date: <input class="w3-input w3-border w3-padding w3-round-xxlarge" name= "start_date" type="date" name="start_date">
-
-	End Date: <input class="w3-input w3-border w3-padding w3-round-xxlarge" name = "end_date" type="date" name="end_date">
-	  <input class="w3-button w3-purple w3-round-large" type="submit" value = "Submit" name = "hop">
-
-	</form>
--->
-	<form method="post" style="width: 10%; height: 30px; margin-left: 60%; margin-top: -4%;">
-	  <input class="w3-button w3-purple w3-round-large" type="submit" value = "Add Question" name = "add">
+	<input class="w3-button w3-purple w3-round-large" type="submit" value = "Add Question" name = "add" style="margin-top: -5%;">
 	</form>
 </body>
 </html>
