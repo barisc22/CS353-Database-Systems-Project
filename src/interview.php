@@ -2,73 +2,57 @@
 include "config.php";
 if(isset($_POST['solution'])){
 	$solution =  $_POST['solution'];
-	echo "Solution";
 
 	if(isset($_POST['category'])){
 		$category =  $_POST['category'];
-		echo "Category";
 
 		if(isset($_POST['duration'])){
 			$duration =  $_POST['duration'];
-			echo "$duration";
 
 			if(isset($_POST['start_date']) && isset($_POST['end_date'])){
 				$start_date =  $_POST['start_date'];
 				$end_date =  $_POST['end_date'];
-				echo "$start_date";
 
 				if(isset($_POST['title'])){
 					$title =  $_POST['title'];
-					echo "Title";
 
 					if(isset($_POST['difficulty'])){
 						$difficulty =  $_POST['difficulty'];
-						echo "Difficulty";
 
 						if(isset($_POST['type'])){
 							$type = $_POST['type'];
-							echo "Type";
 
 							if(isset($_POST['add'])){
-								echo "Hop";
 								$question = $_POST['question'];
 								$test_case = $_POST['test_case'];
 								$sql = "INSERT INTO interview VALUES (0, 2, 'Hop', 'Bok', '$start_date', $end_date, '$duration')";
 						        $result = mysqli_query($con, $sql);
-						        echo "Interview";
-						       	echo $result;
 
 						       	$sql = "INSERT INTO coding_challenge VALUES (0, 1, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
 						        $result = mysqli_query($con, $sql);
-						        echo "Challange";
-						        echo $result;
 
 						     	$sql = "SELECT interview_id  FROM interview WHERE interview_id =(SELECT max(interview_id) FROM interview)";
 						        $result = mysqli_query($con, $sql);
 								$row = mysqli_fetch_assoc($result);
 								$interview_id = implode(",", $row);
-								echo "First:";
-								echo $interview_id;
+
 								$interview_id = (int)$interview_id;
-								$interview_id = $interview_id - 1;
-								echo $interview_id;
-								//echo "<p class='paragraph $interview_id'></p>";
+								$interview_id = $interview_id - 1	;
+
 
 						       	$sql = "SELECT challenge_id  FROM coding_challenge WHERE challenge_id =(SELECT max(challenge_id) FROM coding_challenge)";
 						        $result = mysqli_query($con, $sql);
 								$row = mysqli_fetch_assoc($result);
 								$challenge_id = implode(",", $row);
-								echo $challenge_id;
 
 								$sql = "SELECT question_id   FROM noncoding_question WHERE question_id  =(SELECT max(question_id) FROM noncoding_question)";
 						        $result = mysqli_query($con, $sql);
 								$row = mysqli_fetch_assoc($result);
 								$question_id = implode(",", $row);
-								echo $question_id;
 
 						        if($type == "challenge"){
 						        	echo "Bok2";
-							       	$sql = "INSERT INTO consist_of VALUES ('$interview_id', '$challenge_id')";
+							       	$sql = "INSERT INTO consists_of VALUES ('$interview_id', '$challenge_id')";
 							        $result = mysqli_query($con, $sql);
 							        echo $result;
 
@@ -80,49 +64,36 @@ if(isset($_POST['solution'])){
 						        }
 
 							}else if(isset($_POST['bok'])){
-								echo "Bok";
 								$question = $_POST['question'];
 								$test_case = $_POST['test_case'];
 								$sql = "INSERT INTO interview VALUES (0, 2, 'Hop', 'Bok', '$start_date', $end_date, '$duration')";
 						        $result = mysqli_query($con, $sql);
-						        echo "Interview";
-						       	echo $result;
 
 						       	$sql = "INSERT INTO coding_challenge VALUES (0, 1, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
 						        $result = mysqli_query($con, $sql);
-						        echo "Challange";
-						        echo $result;
 
 						     	$sql = "SELECT interview_id  FROM interview WHERE interview_id =(SELECT max(interview_id) FROM interview)";
 						        $result = mysqli_query($con, $sql);
 								$row = mysqli_fetch_assoc($result);
 								$interview_id = implode(",", $row);
 
-								//echo "<p class='paragraph $interview_id'></p>";
-
 						       	$sql = "SELECT challenge_id  FROM coding_challenge WHERE challenge_id =(SELECT max(challenge_id) FROM coding_challenge)";
 						        $result = mysqli_query($con, $sql);
 								$row = mysqli_fetch_assoc($result);
 								$challenge_id = implode(",", $row);
-								echo $challenge_id;
 
 								$sql = "SELECT question_id   FROM noncoding_question WHERE question_id  =(SELECT max(question_id) FROM noncoding_question)";
 						        $result = mysqli_query($con, $sql);
 								$row = mysqli_fetch_assoc($result);
 								$question_id = implode(",", $row);
-								echo $question_id;
 
 						        if($type == "challenge"){
-						        	echo "Bok2";
-							       	$sql = "INSERT INTO consist_of VALUES ('$interview_id', '$challenge_id')";
+							       	$sql = "INSERT INTO consists_of VALUES ('$interview_id', '$challenge_id')";
 							        $result = mysqli_query($con, $sql);
-							        echo $result;
 
 						        }else{
-						        	echo "Bok3";
 							       	$sql = "INSERT INTO includes VALUES ('$interview_id', '$question_id')";
 							        $result = mysqli_query($con, $sql);
-							        echo $result;
 						        }
 						    }
 						}
