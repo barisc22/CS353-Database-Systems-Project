@@ -74,15 +74,15 @@ else{
         $result = mysqli_query($con, $sql);
 
         if (mysqli_num_rows($result) > 0) {
-            echo "<tr><th>User</th><th>Answer</th><th>Upvotes</th></tr>";
+            echo "<tr><th>User</th><th>Answer</th><th>Votes</th></tr>";
             while($row = mysqli_fetch_assoc($result)) {
                 $user_id = $row["id"];
                 echo "<tr>
                     <td>".$row["username"]."</td>
                     <td>".$row["submission"]."</td>
                     <td>".$row["votes"]."</td>
-                    <td><a href='vote.php?vote=\"1\"&question_id=".$question_id."&user_id=".$user_id."'>Upvote</a></td>
-                    <td><a href='vote.php?vote=\"-1\"&question_id=".$question_id."&user_id=".$user_id."'>Downvote</a></td>
+                    <td><a href='vote.php?vote=1&question_id=".$question_id."&user_id=".$user_id."'>Upvote</a></td>
+                    <td><a href='vote.php?vote=-1&question_id=".$question_id."&user_id=".$user_id."'>Downvote</a></td>
                   </tr>";
             }
         }
