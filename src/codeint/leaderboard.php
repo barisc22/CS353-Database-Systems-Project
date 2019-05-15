@@ -1,9 +1,8 @@
 <?php
 include "config.php";
-$sql = "INSERT INTO contest_user VALUES (1, 27, '10-05-2005', 'Hop', 'Hop2', 20, 1)";
+$sql = "INSERT INTO contest_user VALUES (7, 27, '10-05-2005', 'Hop', 'Hop2', 100, 1)";
 $result = mysqli_query($con, $sql);
 echo $result;
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -92,13 +91,8 @@ echo $result;
             <br><br><br><br><br><br><br><br><br><br>
             <h2>Next Contest:</h2>
             <div style="width: 60%; height: 20px; border: 1px solid grey; margin-left: 20%;">date</div>
-
             <br><br><br>
         </div>
     </div>
-
-
-
-
 </body>
 </html>
