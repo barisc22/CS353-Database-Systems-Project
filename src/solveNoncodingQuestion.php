@@ -1,3 +1,78 @@
+<?php
+include "config.php";
+
+$user_id = 4;#$_SESSION["Id"];
+
+if(isset($_GET['question_id'])){
+    $question_id = $_GET['question_id'];
+}else{
+    echo "Failed";
+}
+if(isset($_POST['mult_answers'])){
+	$mult_answers =  $_POST['mult_answers'];
+
+	if(isset($_POST['answer'])){
+		$answer =  $_POST['answer'];
+
+		if(isset($_POST['submit'])){
+
+			$sql = "SELECT id  FROM user WHERE id  =(SELECT max(id) FROM user)";
+	        $result = mysqli_query($con, $sql);
+			$row = mysqli_fetch_assoc($result);
+			$id = implode(",", $row);
+
+			$sql = "INSERT INTO nc_submit VALUES ('$id', '$question_id', '$answer', 0)";
+	        $result = mysqli_query($con, $sql);
+	        echo $result;
+			
+			if($result == 1){
+	            echo "<script type='text/javascript'>alert('Your answer is submitted.');</script>";
+	        }else{
+	            $sql = "DELETE FROM nc_submit WHERE question_id = '$question_id' AND user_id = '$id'";
+	            $result = mysqli_query($con, $sql);
+
+	            $sql = "INSERT INTO nc_submit VALUES ('$id', '$question_id', '$answer', 0)";
+	            $result = mysqli_query($con, $sql);
+
+	            if($result == 1){
+	                echo "<script type='text/javascript'>alert('Your new answer is submitted.');</script>";
+				}
+			}
+
+	        if($mult_answers == "a1"){
+	        	echo "Hop";
+	        }
+
+		}else if(isset($_POST['save'])){
+
+			$sql = "SELECT id  FROM user WHERE id  =(SELECT max(id) FROM user)";
+	        $result = mysqli_query($con, $sql);
+			$row = mysqli_fetch_assoc($result);
+			$id = implode(",", $row);
+			echo $id;
+
+			$sql = "INSERT INTO nc_saved VALUES ('$question_id', '$id', '$answer')";
+	        $result = mysqli_query($con, $sql);
+	        echo $result;
+
+		    if($result == 1){
+	            echo "<script type='text/javascript'>alert('Your answer is submitted.');</script>";
+	        }else{
+	            $sql = "DELETE FROM nc_saved WHERE question_id = '$question_id' AND user_id = '$id'";
+	            $result = mysqli_query($con, $sql);
+	            $sql = "INSERT INTO nc_saved VALUES ('$question_id', '$id','$answer')";
+	            $result = mysqli_query($con, $sql);
+
+	            if($result == 1){
+	                echo "<script type='text/javascript'>alert('Your new answer is submitted.');</script>";
+			    }
+			}
+		}
+	}
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,66 +110,99 @@
 		<img src="images/codeint.png" style="padding:10px;width:15%; margin: auto;">
 	</div>
 	<div class="w3-container" style="width: 100%; display: inline-block;  margin-top: 5%;">
-		<p><h2 style="font-weight: bold; text-align: center; width: 100%;">Non-coding Question Title</h2>
+		<p><h2 style="font-weight: bold; text-align: center; width: 100%;">Non-coding Question Title: </h2>
 		<div class="w3-container" style="width: 70%; height: 550px; text-align: center; padding:10px; margin: auto; display: inline-block;">
-			<div style="width: 100%; height: 30%; border: 1px solid grey; padding: 10px; margin-bottom: 10px; ">Question</div>
+			<div class="w3-input w3-border w3-padding w3-round-xxlarge" style="width: 100%; height: 30%; border: 1px solid grey; padding: 10px; margin-bottom: 10px; ">
+				<?php
+                    $sql = "select question from noncoding_question where question_id = '$question_id'";
+                    $result = mysqli_query($con, $sql);
+                    if (mysqli_num_rows($result) > 0) {
+		                while($row = mysqli_fetch_assoc($result)) {
+		                    echo "<tr>
+		                    <td>".$row["question"]."</td>
+		                  </tr>";
+		                }
+                    }
+                    else {
+                        echo "0 results";
+                }                    	
+                ?>
+			</div>
 
 			<div class="w3-container" style="height: 60%; width: 100%;">
 				<br><br>
 			 	<p>
-			  	<input class="w3-radio" type="radio" name="gender" value="male" checked>
-			  	<label>Answer1</label></p>
-			  	<p>
-			  	<input class="w3-radio" type="radio" name="gender" value="female">
-			  	<label>Answer2</label></p>
-			  	<p>
-			  	<input class="w3-radio" type="radio" name="gender">
-			  	<label>Answer3</label></p>
-			  	<p>
-			  	<input class="w3-radio" type="radio" name="gender">
-			  	<label>Answer4</label></p>
+			 	<form action="" method="post">
+			 		<input class="w3-input w3-border w3-padding w3-round-xxlarge" name="answer" type="text" placeholder="Answer" id="answer" style="width: 105%; height: 200px; margin-left: -2%; margin-top: -7%;">
+
+				  	<input class="w3-radio" type="radio" name="mult_answers" value="a1" placeholder="Hop" checked>
+				  	    <?php
+	                        $sql = "select choice from ncquestion_choices where question_id = '$question_id'";
+	                        $result = mysqli_query($con, $sql);
+	                        if (mysqli_num_rows($result) > 0) {
+					            $row = mysqli_fetch_assoc($result);
+								$a1 = implode(",", $row);
+								echo $a1;
+	                        }
+	                        else {
+	                            echo "0 results";
+                        }                    	
+                        ?>
+				  	<p>
+				  	<input class="w3-radio" type="radio" name="mult_answers" value="a2">
+				  		<?php
+	                        $sql = "select choice from ncquestion_choices where question_id = '$question_id'";
+	                        $result = mysqli_query($con, $sql);
+	                        if (mysqli_num_rows($result) > 0) {
+	                        	while($row = mysqli_fetch_assoc($result)) {
+						            $row = mysqli_fetch_assoc($result);
+									$a2 = implode(",", $row);
+									echo $a2;
+								}
+	                        }
+	                        else {
+	                            echo "0 results";
+                        }                    	
+                        ?>
+				  	<p>
+				  	<input class="w3-radio" type="radio" name="mult_answers" value = "a3">
+				  		<?php
+	                        $sql = "select choice from ncquestion_choices where question_id = '$question_id'";
+	                        $result = mysqli_query($con, $sql);
+	                        if (mysqli_num_rows($result) > 0) {
+	                        	while($row = mysqli_fetch_assoc($result)) {
+						            $row = mysqli_fetch_assoc($result);
+									$id = implode(",", $row);
+									echo $id;
+								}
+	                        }
+	                        else {
+	                            echo "0 results";
+                        }                    	
+                        ?>
+				  	<p>
+				  	<input class="w3-radio" type="radio" name="mult_answers" value = "a4">
+				  		<?php
+	                        $sql = "select choice from ncquestion_choices where question_id = '$question_id'";
+	                        $result = mysqli_query($con, $sql);
+	                        if (mysqli_num_rows($result) > 0) {
+	                        	while($row = mysqli_fetch_assoc($result)) {
+						            $row = mysqli_fetch_assoc($result);
+									$id = implode(",", $row);
+									echo $id;
+								}
+	                        }
+	                        else {
+	                            echo "0 results";
+                        }                    	
+                        ?>
+				<br><br>
+				<a href='attempt_nc.php?question_id=<?php echo $question_id ?>'>See previous attempts</a>
+				<input type="submit" name="save" value="Save"/>
+				<input type="submit" name="submit" value="Submit"/>
+			</form>
 			</div>
-
-
 			<br>
-			<div style=" display: inline-block; padding-right: 40%;">
-				<button class="w3-button w3-purple w3-round-large">Save</button>
-			</div>
-			<div style=" display: inline-block;">
-				<button class="w3-button w3-purple w3-round-large">Submit</button>
-			</div>
 		</div>
-		<div class="w3-container" style="position:fixed; width: 30%; height: 50%; float: right; text-align: center; padding:10px; margin: auto; display: inline-block; padding-top: 3%; padding: 5%; height: 500px;">
-			<br><br><br>
-			<ul class="w3-ul w3-margin-top" style="height: 250px; margin: auto; overflow: auto;">
-				<table class="w3-table-all w3-hoverable">
-				    <tr>
-				      <td style="text-align: center;">Attempt 1</td>
-				      <td style="text-align: center;">50%</td>
-				    </tr>
-				    <tr>
-				      <td style="text-align: center;">Attempt 2</td>
-				      <td style="text-align: center;">94%</td>
-				    </tr>
-				    <tr>
-				      <td style="text-align: center;">Attempt 3</td>
-				      <td style="text-align: center;">67%</td>
-				    </tr>
-				    <tr>
-				      <td style="text-align: center;">Attempt 4</td>
-				      <td style="text-align: center;"> </td>
-				    </tr>
-				    <tr>
-				      <td style="text-align: center;">Attempt 5</td>
-				      <td style="text-align: center;"> </td>
-				    </tr>
-			  </table>
-			</ul>
-		</div>
-	</div>
-
-
-
-
 </body>
 </html>
