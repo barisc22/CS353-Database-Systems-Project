@@ -35,7 +35,7 @@ if(isset($_POST['submit'])){
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="stylesheet" type="text/css" href="../codeint/styles/w3.css">
+	<link rel="stylesheet" type="text/css" href="styles/w3.css">
 	<title>CodeInt - CV Pool</title>
 	<style>
 	/* width */
@@ -63,7 +63,7 @@ if(isset($_POST['submit'])){
 </head>
 <body>
 	<div class="w3-container">
-		<img src="images/codeint.PNG" class="w3" style="padding:10px; width:15%; margin: auto;">
+		<img src="images/codeint.png" class="w3" style="padding:10px; width:15%; margin: auto;">
 	</div>
 
 	<div class="w3-container w3-center" style="margin-top: 50px; width: 100%; margin: auto; ">
