@@ -1,8 +1,7 @@
 <?php
 include "config.php";
-$sql = "INSERT INTO contest_user VALUES (7, 27, '10-05-2005', 'Hop', 'Hop2', 100, 1)";
+$sql = "INSERT INTO contest_user VALUES (7, 27, '10-05-2005', 'Hop', 'Hop2', 50, 1)";
 $result = mysqli_query($con, $sql);
-echo $result;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,8 +43,8 @@ echo $result;
             </div>
         </div>
         <div style="display: inline-block; width:80%; margin-top: 8%;">
-            <h2 style="padding-left: 10%;">Contest Name</h2>
-            <h2 style="padding-left: 10%;">Contest Date</h2>            
+            <h2 style="padding-left: 10%;">Contest Name: Hop</h2>
+            <h2 style="padding-left: 10%;">Contest Date: 21-05-2019</h2>            
             <div style="width: 50%; height: 20px; border: 1px solid grey; margin-left: 25%; font-weight: bold;">LEADERBOARD</div>
             <ul class="w3-ul w3-margin-top" style="height: 250px; margin: auto; overflow: auto; width: 50%;">
                 <table class="w3-table-all w3-hoverable">
@@ -59,12 +58,9 @@ echo $result;
                     <?php
                         $sql = "update contest_user set rank as (row_number() over (order by contest_score desc))";
                         $result = mysqli_query($con, $sql);
-                        echo "Hop: ";
-                        echo $result;
 
                         $sql = "select GU.username, CU.contest_score, CU.rank from contest_user CU natural join general_user GU where CU.id = GU.id and CU.contest_id = '27'";
                         $result = mysqli_query($con, $sql);
-                        echo mysqli_num_rows($result);
 
                         if (mysqli_num_rows($result) > 0) {
                             while($row = mysqli_fetch_assoc($result)) {
@@ -90,7 +86,7 @@ echo $result;
 
             <br><br><br><br><br><br><br><br><br><br>
             <h2>Next Contest:</h2>
-            <div style="width: 60%; height: 20px; border: 1px solid grey; margin-left: 20%;">date</div>
+            <div style="width: 60%; height: 20px; border: 1px solid grey; margin-left: 20%;">22-05-2019</div>
             <br><br><br>
         </div>
     </div>
