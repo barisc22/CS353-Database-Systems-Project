@@ -138,15 +138,5 @@ if(isset($_POST['solution'])){
 	<input class="w3-button w3-purple w3-round-large" type="submit" value = "Add Question" name = "add" style=" margin-top: -5%;">
 
 	</form>
-<!--
-	<form method = "post" style="width: 20%; height: 30px; margin-left: 60%; margin-top: -30%;">
-
-	Start Date: <input class="w3-input w3-border w3-padding w3-round-xxlarge" name= "start_date" type="date" name="start_date">
-
-	End Date: <input class="w3-input w3-border w3-padding w3-round-xxlarge" name = "end_date" type="date" name="end_date">
-	  <input class="w3-button w3-purple w3-round-large" type="submit" value = "Submit" name = "hop">
-
-	</form>
--->
 </body>
 </html>

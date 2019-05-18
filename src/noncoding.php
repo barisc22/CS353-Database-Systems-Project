@@ -2,14 +2,11 @@
 include "config.php";
 if(isset($_POST['category'])){
 	$category =  $_POST['category'];
-	echo "Hop";
 
 	if(isset($_POST['title'])){
 		$title =  $_POST['title'];
-		echo "Hop";
 
-		if(isset($_POST['bok'])){
-			echo "Hop";
+		if(isset($_POST['save'])){
 			$question = $_POST['question'];
 			if(isset($_POST['mc1']) && isset($_POST['mc2']) && isset($_POST['mc3']) && isset($_POST['mc4'])){
 				$mc1 =  $_POST['mc1'];
@@ -18,13 +15,11 @@ if(isset($_POST['category'])){
 				$mc4 =  $_POST['mc4'];
 				$sql = "INSERT INTO noncoding_question VALUES (0, '$question', 0, '$title', '$category', 1, 1)";
 		        $result = mysqli_query($con, $sql);
-		       	echo $result;
 
 		        $sql = "SELECT question_id FROM noncoding_question WHERE question_id=(SELECT max(question_id) FROM noncoding_question)";
 		        $result = mysqli_query($con, $sql);
 				$row = mysqli_fetch_assoc($result);
 				$id = implode(",", $row);
-				echo $id;
 
 		        $sql = "INSERT INTO ncquestion_choices VALUES ($id, '$mc1')";
 		        $result = mysqli_query($con, $sql);
@@ -38,7 +33,6 @@ if(isset($_POST['category'])){
 		    }else{
 		    	$sql = "INSERT INTO noncoding_question VALUES (0, '$question', 0, '$title', '$category', 1, 0)";
 		        $result = mysqli_query($con, $sql);
-		        echo $result;
 
 		    }
 		}
@@ -76,7 +70,7 @@ if(isset($_POST['category'])){
 	<h3 style="font-weight: bold;">Noncoding Question</h3>
 	<script type="text/javascript"></script>
 
-	<form method="post"><!-- Php dosyası buraya gelecek. -->
+	<form method="post">
 
 	<div class="center" align="center">
 	 <select onchange="location = this.value;">
@@ -103,29 +97,7 @@ if(isset($_POST['category'])){
 	<input class="w3-input w3-border w3-padding w3-round-xxlarge" name="mc3" type="text" placeholder="mc3" id="mc3" style="width: 40%; height: 20; margin-left: 15%;">
 	<input class="w3-input w3-border w3-padding w3-round-xxlarge" name="mc4" type="text" placeholder="mc4" id="mc4" style="width: 40%; height: 20; margin-left: 15%;">
 
-<input class="w3-button w3-purple w3-round-large" type="submit" name = "bok" value = "Save" style="width: 5%; height: 30px; margin-left: 55%; 
+<input class="w3-button w3-purple w3-round-large" type="submit" name = "save" value = "Save" style="width: 5%; height: 30px; margin-left: 55%; 
 	  margin-top: -4%;">
-<!--
-	 </form>
-
-	<input class="w3-input w3-border w3-padding w3-round-xxlarge" type="text" placeholder="Duration" id="duration" ">
-	  <input class="w3-button w3-purple w3-round-large" type="submit" value = "Submit" name = "duration">
-
-	 <form action="/action_page.php" style="width: 20%; height: 30px; margin-left: 60%; margin-top: -20%;">
-	  Start Date: <input class="w3-input w3-border w3-padding w3-round-xxlarge" type="date" name="start_date">
-
-	  End Date: <input class="w3-input w3-border w3-padding w3-round-xxlarge" type="date" name="end_date">
-	  <input class="w3-button w3-purple w3-round-large" type="submit" value = "Submit" name = "date">
-
-
-
-	</form>
--->
-
-<!--
-	<div class="w3-container w3-center" style="margin-top: 20%; width: 100%;">
-		<p><button class="w3-button w3-purple w3-round-large" style="margin-left: 600px;">Continue with Application</button></p>
-	</div>
--->
 </body>
 </html>
