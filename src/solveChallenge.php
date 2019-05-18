@@ -1,6 +1,6 @@
 <?php
 include "config.php";
-$user_id = 4;#$_SESSION["Id"];
+$user_id = $_SESSION["Id"];
 
 if(isset($_GET['challenge_id'])){
     $challenge_id = $_GET['challenge_id'];
