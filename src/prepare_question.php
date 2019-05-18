@@ -15,7 +15,12 @@ if(isset($_POST['solution'])){
 					$sql = "INSERT INTO coding_challenge VALUES (0, 2, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
 			        $result = mysqli_query($con, $sql);
 
-			        $sql = "INSERT INTO test_cases VALUES (0, '$test_case')";
+			        $sql = "SELECT challenge_id  FROM coding_challenge WHERE challenge_id =(SELECT max(challenge_id) FROM coding_challenge)";
+			        $result = mysqli_query($con, $sql);
+					$row = mysqli_fetch_assoc($result);
+					$challenge_id = implode(",", $row);
+
+			        $sql = "INSERT INTO test_cases VALUES ('$challenge_id', '$test_case')";
 			        $result = mysqli_query($con, $sql);
 				}
 			}
