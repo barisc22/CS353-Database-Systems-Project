@@ -1,64 +1,61 @@
 <?php
 include "config.php";
-	if(isset($_POST['add'])){
-		echo "<form action=\"\">
-	<label for=\"question_title\" id=\"example1\" style=\"width: 45%; height: 200px; margin-left: 15%;\">Question Title</label>
-	<input class=\"w3-input w3-border w3-padding w3-round-xxlarge\" name=\"name\" type=\"text\" placeholder=\"Question\" id=\"question\" style=\"width: 40%; height: 200px; margin-left: 15%;\">
-
-	 <input class=\"w3-input w3-border w3-padding w3-round-xxlarge\" type=\"text\" placeholder=\"Test Cases\" id=\"test_cases\" style=\"width: 40%; height: 200px; margin-left: 15%; margin-top: 0%;\">
-
-	<input class=\"w3-button w3-purple w3-round-large\" type=\"submit\" value = \"Save\" style=\"width: 5%; height: 30px; margin-left: 55%; 
-	  margin-top: -5%;\">
-	 </form>";
-	}
 if(isset($_POST['solution'])){
 	$solution =  $_POST['solution'];
-	echo "Solution";
 
 	if(isset($_POST['category'])){
 		$category =  $_POST['category'];
-		echo "Category";
 
 		if(isset($_POST['start_date']) && isset($_POST['end_date'])){
 			$start_date =  $_POST['start_date'];
 			$end_date =  $_POST['end_date'];
-			echo "Start";
 
 			if(isset($_POST['title'])){
 				$title =  $_POST['title'];
-				echo "Title";
 
 				if(isset($_POST['difficulty'])){
 					$difficulty =  $_POST['difficulty'];
-					echo "Difficulty";
 
-					if(isset($_POST['bok'])){
-						echo "Hop";
+					if(isset($_POST['save'])){
 						$question = $_POST['question'];
 						$test_case = $_POST['test_case'];
 						$sql = "INSERT INTO coding_contest VALUES (0, '$start_date', $end_date, '$title')";
 				        $result = mysqli_query($con, $sql);
-				       	echo $result;
 
-				       	$sql = "INSERT INTO coding_challenge VALUES (0, 24, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
+				       	$sql = "INSERT INTO coding_challenge VALUES (0, 1, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
 				        $result = mysqli_query($con, $sql);
-				        echo $result;
 
 				       	$sql = "SELECT challenge_id  FROM coding_challenge WHERE challenge_id =(SELECT max(challenge_id) FROM coding_challenge)";
 				        $result = mysqli_query($con, $sql);
 						$row = mysqli_fetch_assoc($result);
 						$challenge_id = implode(",", $row);
-						echo $challenge_id;
 
 						$sql = "SELECT contest_id   FROM coding_contest WHERE contest_id  =(SELECT max(contest_id) FROM coding_contest)";
 				        $result = mysqli_query($con, $sql);
 						$row = mysqli_fetch_assoc($result);
 						$contest_id = implode(",", $row);
-						echo $contest_id;
 
 				       	$sql = "INSERT INTO contest_question VALUES ('$challenge_id', '$contest_id')";
 				        $result = mysqli_query($con, $sql);
-				        echo $result;						
+					}else if (isset($_POST['add'])){
+						$question = $_POST['question'];
+						$test_case = $_POST['test_case'];
+
+				       	$sql = "INSERT INTO coding_challenge VALUES (0, 1, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
+				        $result = mysqli_query($con, $sql);
+
+				       	$sql = "SELECT challenge_id  FROM coding_challenge WHERE challenge_id =(SELECT max(challenge_id) FROM coding_challenge)";
+				        $result = mysqli_query($con, $sql);
+						$row = mysqli_fetch_assoc($result);
+						$challenge_id = implode(",", $row);
+
+						$sql = "SELECT contest_id   FROM coding_contest WHERE contest_id  =(SELECT max(contest_id) FROM coding_contest)";
+				        $result = mysqli_query($con, $sql);
+						$row = mysqli_fetch_assoc($result);
+						$contest_id = implode(",", $row);
+
+				       	$sql = "INSERT INTO contest_question VALUES ('$challenge_id', '$contest_id')";
+				        $result = mysqli_query($con, $sql);
 					}
 				}
 			}
@@ -136,8 +133,10 @@ if(isset($_POST['solution'])){
 
 	<input class="w3-input w3-border w3-padding w3-round-xxlarge" name = "solution" type="text" placeholder="Solution" id="solution" style="width: 40%; height: 150px; margin-left: 15%; margin-top: 0%;">
 
-	<input class="w3-button w3-purple w3-round-large" type="submit" name = "bok" value = "Save" style="width: 5%; height: 30px; margin-left: 55%; 
+	<input class="w3-button w3-purple w3-round-large" type="submit" name = "save" value = "Save" style="width: 5%; height: 30px; margin-left: 55%; 
 	  margin-top: -5%;">
+	<input class="w3-button w3-purple w3-round-large" type="submit" value = "Add Question" name = "add" style=" margin-top: -5%;">
+
 	</form>
 <!--
 	<form method = "post" style="width: 20%; height: 30px; margin-left: 60%; margin-top: -30%;">
@@ -149,8 +148,5 @@ if(isset($_POST['solution'])){
 
 	</form>
 -->
-	<form method="post" style="width: 10%; height: 30px; margin-left: 60%; margin-top: -4%;">
-	  <input class="w3-button w3-purple w3-round-large" type="submit" value = "Add Question" name = "add">
-	</form>
 </body>
 </html>

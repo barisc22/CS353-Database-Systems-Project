@@ -25,8 +25,6 @@ if(isset($_POST['solution'])){
 							if(isset($_POST['add'])){
 								$question = $_POST['question'];
 								$test_case = $_POST['test_case'];
-								$sql = "INSERT INTO interview VALUES (0, 2, 'Hop', 'Bok', '$start_date', $end_date, '$duration')";
-						        $result = mysqli_query($con, $sql);
 
 						       	$sql = "INSERT INTO coding_challenge VALUES (0, 1, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
 						        $result = mysqli_query($con, $sql);
@@ -35,10 +33,7 @@ if(isset($_POST['solution'])){
 						        $result = mysqli_query($con, $sql);
 								$row = mysqli_fetch_assoc($result);
 								$interview_id = implode(",", $row);
-
 								$interview_id = (int)$interview_id;
-								$interview_id = $interview_id - 1	;
-
 
 						       	$sql = "SELECT challenge_id  FROM coding_challenge WHERE challenge_id =(SELECT max(challenge_id) FROM coding_challenge)";
 						        $result = mysqli_query($con, $sql);
@@ -51,16 +46,12 @@ if(isset($_POST['solution'])){
 								$question_id = implode(",", $row);
 
 						        if($type == "challenge"){
-						        	echo "Bok2";
 							       	$sql = "INSERT INTO consists_of VALUES ('$interview_id', '$challenge_id')";
 							        $result = mysqli_query($con, $sql);
-							        echo $result;
 
 						        }else{
-						        	echo "Bok3";
 							       	$sql = "INSERT INTO includes VALUES ('$interview_id', '$question_id')";
 							        $result = mysqli_query($con, $sql);
-							        echo $result;
 						        }
 
 							}else if(isset($_POST['bok'])){
