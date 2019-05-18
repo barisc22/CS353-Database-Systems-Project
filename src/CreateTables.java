@@ -62,7 +62,7 @@ public class CreateTables {
 
             st.executeUpdate("CREATE TABLE company(\n" +
                     "   id INT NOT NULL PRIMARY KEY,\n" +
-                    "   validation BIT NOT NULL,\n" +
+                    "   validation INT NOT NULL,\n" +
                     "   company_bio VARCHAR (500),\n" +
                     "   FOREIGN KEY (id) REFERENCES general_user (id) ON DELETE CASCADE ON UPDATE CASCADE\n" +
                     "   ) ENGINE=InnoDB;");
@@ -198,10 +198,11 @@ public class CreateTables {
             st.executeUpdate("CREATE TABLE controls(\n" +
                     "   e_id INT NOT NULL,\n" +
                     "   user_id INT NOT NULL,\n" +
-                    "   contest_id INT NOT NULL,\n" +
-                    "   PRIMARY KEY (e_id, user_id, contest_id),\n" +
+                    "   challenge_id INT NOT NULL,\n" +
+                    "   PRIMARY KEY (e_id, user_id, challenge_id),\n" +
                     "   FOREIGN KEY (e_id) REFERENCES editor (id) ON DELETE CASCADE ON UPDATE CASCADE,\n" +
-                    "   FOREIGN KEY (user_id, contest_id) REFERENCES contest_user (id, contest_id) ON DELETE CASCADE ON UPDATE CASCADE\n" +
+                    "   FOREIGN KEY (user_id) REFERENCES contest_user (id) ON DELETE CASCADE ON UPDATE CASCADE\n" +
+                    "   FOREIGN KEY (challenge_id) REFERENCES coding_challenge (challenge_id) ON DELETE CASCADE ON UPDATE CASCADE\n" +
                     "   \n" +
                     "  ) ENGINE=InnoDB;");
 
