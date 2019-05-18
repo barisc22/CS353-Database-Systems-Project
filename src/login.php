@@ -27,8 +27,9 @@ include "config.php";
         $result1 = mysqli_query($con,$sql_User);
         $row1 = mysqli_fetch_array($result1);
 
-        $count1 = $row1['choose'];
 
+        $count1 = $row1['choose'];
+        $_SESSION['Id'] = $count1;
         //Is it a editor
 
         $sql_Editor = "select count(*) as edit from editor where id='".$count1."'";
@@ -51,19 +52,19 @@ include "config.php";
           if($count2 > 0){
             $_SESSION['uname'] = $uname;
              $_SESSION['editId'] = $count1;
-            header('Location: p.php');
+            header('Location: EditorMainPage.php');
           }
-          //this is a
+          //this is a comp
           else if($count3 > 0)
           {
              $_SESSION['uname'] = $uname;
              $_SESSION['userId'] = $count1;
-            header('Location: CompanySignUp.php');
+            header('Location: CompanyMainPage.php');
           }
           else{
              $_SESSION['uname'] = $uname;
              $_SESSION['userId'] = $count1;
-            header('Location: part.php');
+            header('Location: userMainPage.php');
 
           }
             
