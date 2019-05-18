@@ -1,5 +1,6 @@
 <?php
 include "config.php";
+$c_id = $_SESSION["Id"];
 if(isset($_POST['solution'])){
 	$solution =  $_POST['solution'];
 
@@ -26,7 +27,7 @@ if(isset($_POST['solution'])){
 								$question = $_POST['question'];
 								$test_case = $_POST['test_case'];
 
-						       	$sql = "INSERT INTO coding_challenge VALUES (0, 1, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
+						       	$sql = "INSERT INTO coding_challenge VALUES (0, 2, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
 						        $result = mysqli_query($con, $sql);
 
 						     	$sql = "SELECT interview_id  FROM interview WHERE interview_id =(SELECT max(interview_id) FROM interview)";
@@ -57,10 +58,10 @@ if(isset($_POST['solution'])){
 							}else if(isset($_POST['bok'])){
 								$question = $_POST['question'];
 								$test_case = $_POST['test_case'];
-								$sql = "INSERT INTO interview VALUES (0, 2, 'Hop', 'Bok', '$start_date', $end_date, '$duration')";
+								$sql = "INSERT INTO interview VALUES (0, c_id, 'Hop', 'Bok', '$start_date', $end_date, '$duration')";
 						        $result = mysqli_query($con, $sql);
 
-						       	$sql = "INSERT INTO coding_challenge VALUES (0, 1, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
+						       	$sql = "INSERT INTO coding_challenge VALUES (0, 2, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
 						        $result = mysqli_query($con, $sql);
 
 						     	$sql = "SELECT interview_id  FROM interview WHERE interview_id =(SELECT max(interview_id) FROM interview)";
