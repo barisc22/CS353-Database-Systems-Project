@@ -106,7 +106,7 @@ function change()
 				<img src="images/codeint2.png" style="padding-bottom:28%; width:50%; margin: auto;">
 			</div>
 			<div class="w3-bar" style="display: inline-block; width: 50%; margin-top: 10px; font-size: 20px; height: 80%; padding-top: 5px; color: purple">
-				<a style="width: 30%;" href="<?php echo " contest.php?Id = {$usId}"?>"  class="w3-bar-item w3-button">Join Contest</a>
+				<a style="width: 30%;" href="<?php echo " solveContest.php?Id = {$usId}"?>"  class="w3-bar-item w3-button">Join Contest</a>
 			  	<a style="width: 30%;" href="<?php echo " ShowChallenges.php?Id = {$usId}"?>"  class="w3-bar-item w3-button">Challenges</a>
 			  	<a style="width: 30%;" href="<?php echo " cvPool.php?Id = {$usId}'"?>" class="w3-bar-item w3-button">Join CV Pool</a>
 			</div>

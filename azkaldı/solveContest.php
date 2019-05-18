@@ -1,18 +1,37 @@
 <?php
 include "config.php";
-$user_id = 4;#$_SESSION["Id"];
-if(isset($_GET['challenge_id'])){
-    $challenge_id = $_GET['challenge_id'];
-    $sql = "SELECT question, title FROM coding_challenge WHERE challenge_id = '$challenge_id'";
-    $result = mysqli_query($con, $sql);
-    while($row = $result->fetch_assoc()) {
+$user_id = 3;#$_SESSION["Id"];
+$sql = "SELECT contest_id  FROM coding_contest WHERE contest_id =(SELECT max(contest_id) FROM coding_contest)";
+                                $result2 = mysqli_query($con, $sql);
+                                $row = mysqli_fetch_assoc($result2);
+                                $contest_id = implode(",", $row);
+                                echo $contest_id;
+ $sql = "INSERT INTO contest_user (id, contest_id) VALUES ('".$user_id."', '".$contest_id."')";
+        $result = mysqli_query($con, $sql);
+      
+      echo "hello";
+    $view = "CREATE VIEW 'contest_table' as select title as title, question as question, contest_id as contest_id from
+   contest_question  Natural JOIN coding_challenge ";
+   
+     
+echo "hello";
+
+    $myview = mysqli_query($con, $view);
+      echo $myview;
+    $current = "select * from contest_table where contest_id = '".$contest_id."'";
+
+    $final = mysqli_query($con, $current);
+    
+    while($row = $final->fetch_assoc()) {
         $question = $row["question"];
+        echo $question;
         $title = $row["title"];
+        echo $title;
+        $test_case = $row["test_case"];
     }
-}
-else{
-    echo "Failed";
-}
+
+
+
 if(isset($_POST['save'])){
     if(isset($_POST['answer']) && isset($_POST['pl'])) {
         $answer = $_POST['answer'];
@@ -94,8 +113,11 @@ if(isset($_POST['submit'])){
     <div class="w3-container">
         <img src="images/codeint.png" class="w3" style="padding:10px; width:15%; margin: auto;">
     </div>
+    
+
 	<div class="w3-container" style="width: 100%; display: inline-block;">
 		<p><h2 style="font-weight: bold; text-align: center; width: 100%;"><?php echo $title ?></h2>
+
 		<div class="w3-container" style="display: inline-block; width: 30%; height: 500px;">
 			<div style="width: 90%; height: 300px; border: 1px solid grey; margin: 10%; ">Question: <?php echo $question ?> </div>
 			<div style="width: 90%; height: 120px; border: 1px solid grey; margin: 10%;">
@@ -120,13 +142,14 @@ if(isset($_POST['submit'])){
                 <option value="Java">Java</option>
                 <option value="C++">C++</option>
             </select>
-            <br>
+            <br> <br>
             <input class="w3-input w3-border" style="height: 80%; width: 130%;" name="answer" type="text" id="answer">
-            <br>
-            <input class="w3-button w3-purple w3-round-large" type="submit" name = "save" value = "Save">
-            <input class="w3-button w3-purple w3-round-large" type="submit" name = "submit" value = "Submit">
-            <a href='attempt.php?challenge_id=<?php echo $challenge_id ?>'>See previous attempts</a>
+            <input class="w3-button w3-purple w3-round-large" type="submit" name = "submit" value = "Submit">   
         </form>
+
+
+
+
     </div>
 </body>
 </html>

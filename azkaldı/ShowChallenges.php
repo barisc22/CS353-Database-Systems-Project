@@ -60,7 +60,7 @@ include "config.php";
                     <td>".$row["category"]."</td>
                     <td>".$row["difficulty"]."</td>
                     <td>".$row["percentage"]."</td>
-                    <td><a href='cvPool.php?challenge_id=".$row["challenge_id"]."'>Solve</a></td>
+                    <td><a href='solveChallenge.php?challenge_id=".$row["challenge_id"]."'>Solve</a></td>
                   </tr>";
                 }
             }
@@ -91,7 +91,7 @@ include "config.php";
                     <td>".$row["category"]."</td>
                     <td>".$row["reward"]."</td>
                     <td>".$row["percentage"]."</td>
-                    <td><a href='cvPool.php?question_id=".$row["question_id"]."'>Solve</a></td>
+                    <td><a href='solveNoncodingQuestion.php?question_id=".$row["question_id"]."'>Solve</a></td>
                     <td><a href='EvaluateNoncoding.php?question_id=".$row["question_id"]."'>Show Answers</a></td>
                   </tr>";
             }

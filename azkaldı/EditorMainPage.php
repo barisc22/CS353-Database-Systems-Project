@@ -2,7 +2,7 @@
 
 include "config.php";
 $editId = $_SESSION['Id'];
-$editId= 1;
+$editId= 2;
 $editname = "select username from general_user where id= '".$editId."'";
 $r1 = mysqli_query($con, $editname);
 $row2 = mysqli_fetch_assoc($r1);
@@ -13,6 +13,16 @@ $r4 = mysqli_query($con, $poi);
 $row4 = mysqli_fetch_assoc($r4);
 $points = $row4['penalty_points'];
 $count =  $row4['question_count'];
+
+
+if(array_key_exists('val', $_POST))
+{
+	validate();
+}
+function validate()
+{
+	echo" doing thism";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,7 +91,7 @@ $count =  $row4['question_count'];
 						}	
 					}
 					?>
-					<a style="width: 30%;" href="<?php echo " checkQuestion.php?challenge={$challenge} & user={$user} "?>" class="w3-bar-item w3-button">Grade</a>
+					<a  class= "w3-button w3-purple w3-round-large" style="width: 30%;" href="<?php echo " checkQuestion.php?challenge={$challenge} & user={$user} "?>" class="w3-bar-item w3-button">Grade</a>
 
 					</ul>
 					<br><br>
@@ -109,8 +119,8 @@ $count =  $row4['question_count'];
 									echo "<p><li class= \"w3-border\" style=\"width: 30%; display: inline-block;\">".$compN. "</li>
        					<li class= \"w3-border\" style=\"width: 30%; display: inline-block;\">".$comp. "
        						</li>";
-       						echo "<button class= \"w3-button w3-purple w3-round-large\" name=\"ev1\" style=\" display: inline-block;\">VALIDATE</button>
-					</p>";
+       					
+     echo "<a  class= \"w3-button w3-purple w3-round-large\" style=\"width: 30%;\" href='validate.php?comp= {$comp}' class= \" w3-bar-item w3-button\" >VALIDATE</a>";
 
 						}	
 					}
