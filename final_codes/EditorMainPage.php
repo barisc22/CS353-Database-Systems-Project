@@ -2,7 +2,7 @@
 
 include "config.php";
 $editId = $_SESSION['Id'];
-$editId= 2;
+
 $editname = "select username from general_user where id= '".$editId."'";
 $r1 = mysqli_query($con, $editname);
 $row2 = mysqli_fetch_assoc($r1);
