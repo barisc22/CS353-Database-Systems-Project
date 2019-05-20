@@ -50,7 +50,7 @@ include "config.php";
     <table id="challengeTable" align="center" cellspacing="20">
         <tr><th>Title</th><th>Category</th><th>Difficulty</th><th>Percentage</th></tr>
         <?php
-            $sql = "SELECT challenge_id, title, category, difficulty, percentage FROM coding_challenge";
+            $sql = "SELECT challenge_id, title, category, difficulty FROM coding_challenge";
             $result = mysqli_query($con, $sql);
 
             if (mysqli_num_rows($result) > 0) {
@@ -59,7 +59,6 @@ include "config.php";
                     <td>".$row["title"]."</td>
                     <td>".$row["category"]."</td>
                     <td>".$row["difficulty"]."</td>
-                    <td>".$row["percentage"]."</td>
                     <td><a href='solveChallenge.php?challenge_id=".$row["challenge_id"]."'>Solve</a></td>
                   </tr>";
                 }
@@ -81,7 +80,7 @@ include "config.php";
     <table id="questionTable" align="center" cellspacing="20">
         <tr><th>Title</th><th>Category</th><th>Reward</th><th>Percentage</th></tr>
         <?php
-        $sql = "SELECT question_id, title, category, reward, percentage FROM noncoding_question";
+        $sql = "SELECT question_id, title, category, reward FROM noncoding_question";
         $result = mysqli_query($con, $sql);
 
         if (mysqli_num_rows($result) > 0) {
@@ -90,7 +89,6 @@ include "config.php";
                     <td>".$row["title"]."</td>
                     <td>".$row["category"]."</td>
                     <td>".$row["reward"]."</td>
-                    <td>".$row["percentage"]."</td>
                     <td><a href='solveNoncodingQuestion.php?question_id=".$row["question_id"]."'>Solve</a></td>
                     <td><a href='EvaluateNoncoding.php?question_id=".$row["question_id"]."'>Show Answers</a></td>
                   </tr>";
