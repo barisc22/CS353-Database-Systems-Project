@@ -57,9 +57,19 @@ include "config.php";
           //this is a comp
           else if($count3 > 0)
           {
+
              $_SESSION['uname'] = $uname;
              $_SESSION['userId'] = $count1;
+   $val = "select validation from company where id = '".$count1."'";
+           $result4 = mysqli_query($con,$val);
+             $row4 = mysqli_fetch_array($result4);
+               $val55 = $row4['validation'];
+            if($val55 == 1){
             header('Location: CompanyMainPage.php');
+          }else {
+            $mes = "YOU ARE NOT VALIDATED";
+    echo "<script type=\"text/javascript\"> alert('$mes'); <script>";
+          }
           }
           else{
              $_SESSION['uname'] = $uname;
