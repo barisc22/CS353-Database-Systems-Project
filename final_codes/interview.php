@@ -1,0 +1,187 @@
+<?php
+include "config.php";
+$c_id = 13;//$_SESSION["Id"];
+if(isset($_POST['solution'])){
+	$solution =  $_POST['solution'];
+
+	if(isset($_POST['category'])){
+		$category =  $_POST['category'];
+
+		if(isset($_POST['duration'])){
+			$duration =  $_POST['duration'];
+
+			if(isset($_POST['start_date']) && isset($_POST['end_date'])){
+				$start_date =  $_POST['start_date'];
+				$end_date =  $_POST['end_date'];
+
+				if(isset($_POST['title'])){
+					$title =  $_POST['title'];
+
+					if(isset($_POST['difficulty'])){
+						$difficulty =  $_POST['difficulty'];
+
+						if(isset($_POST['type'])){
+							$type = $_POST['type'];
+
+							if(isset($_POST['add'])){
+								$question = $_POST['question'];
+								$test_case = $_POST['test_case'];
+
+						     	$sql = "SELECT interview_id  FROM interview WHERE interview_id =(SELECT max(interview_id) FROM interview)";
+						        $result = mysqli_query($con, $sql);
+								$row = mysqli_fetch_assoc($result);
+								$interview_id = implode(",", $row);
+								$interview_id = (int)$interview_id;
+
+						        if($type == "challenge"){
+							        $sql = "INSERT INTO coding_challenge VALUES (0, 2, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
+							        $result = mysqli_query($con, $sql);
+
+									$sql = "SELECT challenge_id  FROM coding_challenge WHERE challenge_id =(SELECT max(challenge_id) FROM coding_challenge)";
+							        $result = mysqli_query($con, $sql);
+									$row = mysqli_fetch_assoc($result);
+									$challenge_id = implode(",", $row);
+
+							       	$sql = "INSERT INTO consists_of VALUES ('$interview_id', '$challenge_id')";
+							        $result = mysqli_query($con, $sql);
+
+						        }else{
+									$sql = "INSERT INTO noncoding_question VALUES (0, '$question', 0, '$title', '$category', 1, 0)";
+							        $result = mysqli_query($con, $sql);
+
+							        $sql = "SELECT question_id   FROM noncoding_question WHERE question_id  =(SELECT max(question_id) FROM noncoding_question)";
+							        $result = mysqli_query($con, $sql);
+									$row = mysqli_fetch_assoc($result);
+									$question_id = implode(",", $row);
+
+								    $sql = "INSERT INTO includes VALUES ('$interview_id', '$question_id')";
+							        $result = mysqli_query($con, $sql);
+						        }
+
+							}else if(isset($_POST['save'])){
+								$question = $_POST['question'];
+								$test_case = $_POST['test_case'];
+								$sql = "INSERT INTO interview VALUES (0, '$c_id', 'Hop', 'Hop', '$start_date', $end_date, '$duration')";
+						        $result = mysqli_query($con, $sql);
+
+						     	$sql = "SELECT interview_id  FROM interview WHERE interview_id =(SELECT max(interview_id) FROM interview)";
+						        $result = mysqli_query($con, $sql);
+								$row = mysqli_fetch_assoc($result);
+								$interview_id = implode(",", $row);
+
+						        if($type == "challenge"){
+						        	$sql = "INSERT INTO coding_challenge VALUES (0, 2, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
+						        	$result = mysqli_query($con, $sql);
+
+						        	$sql = "SELECT challenge_id  FROM coding_challenge WHERE challenge_id =(SELECT max(challenge_id) FROM coding_challenge)";
+							        $result = mysqli_query($con, $sql);
+									$row = mysqli_fetch_assoc($result);
+									$challenge_id = implode(",", $row);
+
+							       	$sql = "INSERT INTO consists_of VALUES ('$interview_id', '$challenge_id')";
+							        $result = mysqli_query($con, $sql);
+
+						        }else{
+						        	$sql = "INSERT INTO noncoding_question VALUES (0, '$question', 0, '$title', '$category', 1, 0)";
+							        $result = mysqli_query($con, $sql);
+
+						        	$sql = "SELECT question_id   FROM noncoding_question WHERE question_id  =(SELECT max(question_id) FROM noncoding_question)";
+							        $result = mysqli_query($con, $sql);
+									$row = mysqli_fetch_assoc($result);
+									$question_id = implode(",", $row);
+
+							       	$sql = "INSERT INTO includes VALUES ('$interview_id', '$question_id')";
+							        $result = mysqli_query($con, $sql);
+						        }
+						    }						    
+						}
+					}
+				}
+			}
+		}
+	}
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" type="text/css" href="styles/w3.css">
+	<title>Prepare Question</title>
+
+	<style>
+	.blocktext {
+    position: relative;
+    display: inline-block;
+	}
+
+	.center {
+	  margin: auto;
+	  width: 40%;
+	  padding: 10px;
+	}
+
+	</style>
+</head>
+<body>
+	<div class="w3-container">
+		<img src="images/codeint.png" class="w3" style="padding:10px; width:15%; margin: auto;">
+	</div>
+	<h3 style="font-weight: bold;">Contest</h3>
+
+
+	<script type="text/javascript"></script>
+
+	<form method = "post">
+
+
+
+	<div class="center" align="center">
+
+	<select name = "type">
+	 <option value="type">Select Question Type</option>
+	  <option value="challenge">Challenge</option>
+	  <option value="nc">Non Coding Question</option>
+	</select> 
+
+	<select name = "difficulty">
+	 <option value="difficulty">Select Difficulty</option>
+	  <option value="easy">Easy</option>
+	  <option value="medium">Medium</option>
+	  <option value="hard">Hard</option>
+	  <option value="ultimate">Ultimate</option>
+	</select> 
+
+	<select name = "category">
+	 <option value="category">Select Category</option>
+	  <option value="c1">C1</option>
+	  <option value="c2">C2</option>
+	  <option value="c3">C3</option>
+	  <option value="c4">C4</option>
+	</select> 
+	</div>
+
+	
+	Duration:<input class="w3-input w3-border w3-padding w3-round-xxlarge" name= "duration" type="text" style="width: 15%; height: 20; margin-top : -2%; margin-left: 7%;">
+
+	Start Date:<input class="w3-input w3-border w3-padding w3-round-xxlarge" name= "start_date" type="date" style="width: 15%; height: 20; margin-top : -1%; margin-left: 7%;">
+
+	End Date:<input class="w3-input w3-border w3-padding w3-round-xxlarge" name = "end_date" type="date" style="width: 15%; height: 20; margin-top : -1%; margin-left: 7%;">
+
+	<input class="w3-input w3-border w3-padding w3-round-xxlarge" name="title" type="text" placeholder="Title" id="title" style="width: 40%; height: 20; margin-left: 15%;">
+
+	<input class="w3-input w3-border w3-padding w3-round-xxlarge" name="question" type="text" placeholder="Question" id="question" style="width: 40%; height: 130px; margin-left: 15%;">
+
+	<input class="w3-input w3-border w3-padding w3-round-xxlarge" name = "test_case" type="text" placeholder="Test Cases" id="test_cases" style="width: 40%; height: 130px; margin-left: 15%; margin-top: 0%;">
+
+	<input class="w3-input w3-border w3-padding w3-round-xxlarge" name = "solution" type="text" placeholder="Solution" id="solution" style="width: 40%; height: 130px; margin-left: 15%; margin-top: 0%;">
+
+	<input class="w3-button w3-purple w3-round-large" type="submit" name = "save" value = "Save" style="width: 5%; height: 30px; margin-left: 55%; margin-top: -5%;">
+
+	<input class="w3-button w3-purple w3-round-large" type="submit" value = "Add Question" name = "add" style="margin-top: -5%;">
+	</form>
+</body>
+</html>
