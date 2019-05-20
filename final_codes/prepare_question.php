@@ -1,5 +1,7 @@
 <?php
 include "config.php";
+$e_id = $_SESSION["Id"];
+
 if(isset($_POST['solution'])){
 	$solution =  $_POST['solution'];
 	if(isset($_POST['category'])){
@@ -12,7 +14,7 @@ if(isset($_POST['solution'])){
 					$question = $_POST['question'];
 					$test_case = $_POST['test_case'];
 
-					$sql = "INSERT INTO coding_challenge VALUES (0, 2, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
+					$sql = "INSERT INTO coding_challenge VALUES (0, '$e_id', '$question', 0, '$difficulty', '$title', '$solution', '$category')";
 			        $result = mysqli_query($con, $sql);
 
 			        $sql = "SELECT challenge_id  FROM coding_challenge WHERE challenge_id =(SELECT max(challenge_id) FROM coding_challenge)";
@@ -27,6 +29,19 @@ if(isset($_POST['solution'])){
 		}
 	}
 }
+function goBack()
+
+  {
+    //echo "going back";
+      header('Location:EditorMainPage.php');
+  }
+
+//logout
+if(array_key_exists('getback', $_POST))
+    {
+      goBack();
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -96,6 +111,11 @@ if(isset($_POST['solution'])){
 	  margin-top: -4%;">
 
 	 </form>
+	<div >
+ 	<form method='post' action="">
+            <input type="submit" value="Return" class="but1" name="getback"/>
+        </form>
+	</div>
 </body>
 </html>
 

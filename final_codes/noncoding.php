@@ -38,6 +38,20 @@ if(isset($_POST['category'])){
 	}
 }
 
+function goBack()
+
+  {
+    //echo "going back";
+      header('Location:EditorMainPage.php');
+  }
+
+//logout
+if(array_key_exists('getback', $_POST))
+    {
+      goBack();
+    }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -98,5 +112,10 @@ if(isset($_POST['category'])){
 
 <input class="w3-button w3-purple w3-round-large" type="submit" name = "save" value = "Save" style="width: 5%; height: 30px; margin-left: 55%; 
 	  margin-top: -4%;">
+	<div >
+ 	<form method='post' action="">
+            <input type="submit" value="Return" class="but1" name="getback"/>
+        </form>
+	</div>
 </body>
 </html>

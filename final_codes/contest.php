@@ -78,6 +78,18 @@ if(isset($_POST['solution'])){
 		}
 	}
 }
+function goBack()
+
+  {
+    //echo "going back";
+      header('Location:EditorMainPage.php');
+  }
+
+//logout
+if(array_key_exists('getback', $_POST))
+    {
+      goBack();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -154,5 +166,10 @@ if(isset($_POST['solution'])){
 	<input class="w3-button w3-purple w3-round-large" type="submit" value = "Add Question" name = "add" style=" margin-top: -5%;">
 
 	</form>
+<div >
+ 	<form method='post' action="">
+            <input type="submit" value="Return" class="but1" name="getback"/>
+        </form>
+	</div>
 </body>
 </html>

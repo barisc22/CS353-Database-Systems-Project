@@ -1,6 +1,6 @@
 <?php
 include "config.php";
-$user_id = 11;#$_SESSION["Id"];
+$user_id = $_SESSION["Id"];
 if(isset($_GET['question_id'])){
     $question_id = $_GET['question_id'];
     $sql = "SELECT attempt  FROM nc_saved WHERE question_id = '$question_id' AND user_id = '$user_id'";
@@ -51,7 +51,7 @@ else{
 
 		<h2 style="font-weight: bold; ">Previous Attempt</h2>
 		<div class="w3-container" style="width: 60%; height: 80%; text-align: center; padding:10px; margin: auto; display: inline-block; padding-top: 2%;">
-			<p><a href='solveNoncodingQuestion.php?challenge_id=<?php echo $challenge_id ?>'>Go back to question</a></p>
+			<p><a href='solveNoncodingQuestion.php?question_id=<?php echo $question_id ?>'>Go back to question</a></p>
 			<br><br>
 			<div style="width: 100%; height: 350px; border: 1px solid grey; margin: 10px; padding: 10px; overflow: auto;"><?php echo $answer ?></div>
 

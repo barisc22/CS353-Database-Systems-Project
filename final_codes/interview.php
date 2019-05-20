@@ -1,6 +1,6 @@
 <?php
 include "config.php";
-$c_id = 13;//$_SESSION["Id"];
+$c_id = $_SESSION["Id"];
 if(isset($_POST['solution'])){
 	$solution =  $_POST['solution'];
 
@@ -101,6 +101,19 @@ if(isset($_POST['solution'])){
 		}
 	}
 }
+function goBack()
+
+  {
+    //echo "going back";
+      header('Location:CompanyMainPage.php');
+  }
+
+//logout
+if(array_key_exists('getback', $_POST))
+    {
+      goBack();
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -183,5 +196,12 @@ if(isset($_POST['solution'])){
 
 	<input class="w3-button w3-purple w3-round-large" type="submit" value = "Add Question" name = "add" style="margin-top: -5%;">
 	</form>
+
+	<div >
+ 	<form method='post' action="">
+            <input type="submit" value="Return" class="but1" name="getback"/>
+        </form>
+	</div>
+
 </body>
 </html>

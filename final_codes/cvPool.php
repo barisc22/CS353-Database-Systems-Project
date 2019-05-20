@@ -17,8 +17,17 @@ if(isset($_POST['submit'])){
 
             $user_id = $_SESSION['Id'];
             
-            $sql = "INSERT INTO applies VALUES ('$user_id', '$c_id', '$job_title', 'CVBOK')";
+            $sql = "INSERT INTO applies VALUES ('$user_id', '$c_id', '$job_title', 'CV')";
             $result = mysqli_query($con, $sql);
+	    
+	    if($result == 1){
+		echo "<script type='text/javascript'>alert('Your job applications are saved.');</script>";
+		header("Location: userMainPage.php");
+	    }
+	    else{
+		echo "<script type='text/javascript'>alert('Oops! Something went wrong.');</script>";
+		header("Location: userMainPage.php");
+	    }
         }
 
     }

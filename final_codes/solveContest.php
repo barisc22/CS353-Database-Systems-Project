@@ -1,6 +1,6 @@
 <?php
 include "config.php";
-$user_id = 1;#$_SESSION["Id"];
+$user_id = $_SESSION["Id"];
 $start = $milliseconds = round(microtime(true) * 1000);
 $sql = "SELECT contest_id  FROM coding_contest WHERE contest_id =(SELECT max(contest_id) FROM coding_contest)";
 $result2 = mysqli_query($con, $sql);
@@ -55,7 +55,7 @@ if(isset($_POST['answer'])){
 		$result2 = mysqli_query($con, $current);
 		if($count == $i){
 			echo "<script type='text/javascript'>alert('No more question.');</script>";
-			header("Location: prepare_question.php");
+			header("Location: userMainPage.php");
 		}
 	}	
 }

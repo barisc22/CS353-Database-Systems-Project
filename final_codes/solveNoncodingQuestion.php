@@ -1,7 +1,7 @@
 <?php
 include "config.php";
 
-$id = 11;#$_SESSION["Id"];
+$id = $_SESSION["Id"];
 if(isset($_GET['question_id'])){
     $question_id = $_GET['question_id'];
     $sql = "SELECT question, title FROM noncoding_question WHERE question_id  = '$question_id '";

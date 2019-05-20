@@ -1,9 +1,7 @@
 <?php
 include "config.php";
 $challenge = $_GET['challenge'];
-echo $challenge;
 $user = $_GET['user'];
-echo $user;
 $editId =  $_SESSION['Id'];
 
 $q1 = "select title, question from coding_challenge where challenge_id = '".$challenge."' ";
@@ -12,14 +10,22 @@ $result1 = mysqli_query($con, $q1);
 $row1 = mysqli_fetch_assoc($result1);
 $result2 = mysqli_query($con, $q2);
 $row2 = mysqli_fetch_assoc($result2);
- if(isset($_POST['submit_but'])){
 
-$q3 = "insert into controls values('".$editId."', '".$user."', '".$challenge."')";
-$result3 = mysqli_query($con, $q3);
+if(isset($_POST['grade'])){
+	$grade =  $_POST['grade'];
+ 	if(isset($_POST['submit_but'])){
 
- header('Location: EditorMainPage.php');
+		$q3 = "insert into controls values('".$editId."', '".$user."', '".$challenge."')";
+		$result3 = mysqli_query($con, $q3);
 
+		$q4 = "update user set total_score = total_score + $grade where id = '$user' ";
+		$result4 = mysqli_query($con, $q4);
 
+		$q5 = "delete from submit where user_id = '$user' and challenge_id = '$challenge' ";
+		$result5 = mysqli_query($con, $q5);
+
+ 		header('Location: EditorMainPage.php');
+	}
 }
 ?>
 <!DOCTYPE html>

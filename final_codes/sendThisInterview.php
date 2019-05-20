@@ -9,7 +9,8 @@ if(isset($_GET['user_id']) && isset($_GET['interview_id'])){
     if($result == 1){
     	echo "<script type='text/javascript'>alert('Interview is sent to user.');</script>";
 	}
-	header( "Location: sendInterview.php?user_id=".$user_id."");
+	header( "Location: CompanyMainPage.php");
+	//header( "Location: sendInterview.php?user_id=".$user_id."");
     
 }
 ?>
