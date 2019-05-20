@@ -118,7 +118,67 @@ else if (isset($_POST['decision']))
 					</ul>
 
 
-					
+                <p><h2 style="font-weight: bold; display: inline-block;">CV Pool Applicants</h2>
+                <ul class="w3-ul w3-margin-top" style="width: 60%; height: 200px; margin: auto; overflow: auto; text-align: center;">
+                    <?php
+                    $sql = "SELECT A.user_id, G.username, A.job_title FROM applies A NATURAL JOIN general_user G WHERE A.c_id = '$compId' AND G.id = A.user_id";
+                    $result = mysqli_query($con, $sql);
+                    echo "<table id=\"bok\" align=\"center\" cellspacing=\"20\">";
+                    echo "<tr><th>User</th><th>Job Title</th></tr>";
+                    while($row = $result->fetch_assoc()) {
+                        $username = $row["username"];
+                        $job_title = $row["job_title"];
+                        echo "<tr>
+                                <td>".$row["username"]."</td>
+                                <td>".$row["job_title"]."</td>
+                                <td><a href='sendInterview.php?user_id=".$row["user_id"]."'>Send Interview</a></td>
+                              </tr>";
+
+                    }
+                    echo "</table>";
+
+
+                    $finished2= "select interview_id from interview where c_id = '".$compId."'";
+                    $result = mysqli_query($con,$finished);
+                    if(mysqli_num_rows($result) > 0){
+                        while ($row = mysqli_fetch_assoc($result))
+                        {
+                            $int_id2 = $row['interview_id'];
+                            //echo $int_id;
+                            $finished2 = "select end_date from interview where c_id = '".$compId."'";
+                            $result0 = mysqli_query($con,$finished2);
+                            $ro0w = mysqli_fetch_assoc($result0);
+                            $enddate = $ro0w['end_date'];
+
+                            $que2= "select user_id, grade from solves where interview_id = '".$int_id2."'";
+
+                            $result3 = mysqli_query($con,$que2);
+
+                            while($row3 = mysqli_fetch_assoc($result3)){
+
+                                // $end = $row2['end_date'];
+                                //echo $grade2;
+                                $grade2 = $row3['grade'];
+                                $userid = $row3['user_id'];
+                                //echo $userid;
+                                $que4 = "select username as choose from general_user where id = '".$userid."'";
+                                $res =  mysqli_query($con,$que4);
+
+
+                                $row1 = mysqli_fetch_array($res);
+                                $userN = $row1['choose'];
+                                if($grade2 <= 0){
+
+                                    echo "<p><li class= \"w3-border\" style=\"width: 30%; display: inline-block;\">".$userN. "<li class= \"w3-border\" style=\"width: 30%; display: inline-block;\">".$enddate. "</li>";
+                                }
+                            }
+                        }
+                    }
+                    else
+                        echo "No result";
+                    ?>
+
+                </ul>
 
 				<p><h2 style="font-weight: bold; display: inline-block;">Waiting Interviews</h2>
 				<ul class="w3-ul w3-margin-top" style="width: 60%; height: 200px; margin: auto; overflow: auto; text-align: center;">
