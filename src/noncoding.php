@@ -5,14 +5,13 @@ if(isset($_POST['category'])){
 
 	if(isset($_POST['title'])){
 		$title =  $_POST['title'];
-
-		if(isset($_POST['save'])){
-			$question = $_POST['question'];
-			if(isset($_POST['mc1']) && isset($_POST['mc2']) && isset($_POST['mc3']) && isset($_POST['mc4'])){
-				$mc1 =  $_POST['mc1'];
-				$mc2 =  $_POST['mc2'];
-				$mc3 =  $_POST['mc3'];
-				$mc4 =  $_POST['mc4'];
+		if(isset($_POST['mc1']) && isset($_POST['mc2']) && isset($_POST['mc3']) && isset($_POST['mc4'])){
+			$mc1 =  $_POST['mc1'];
+			$mc2 =  $_POST['mc2'];
+			$mc3 =  $_POST['mc3'];
+			$mc4 =  $_POST['mc4'];
+			if(isset($_POST['save'])){
+				$question = $_POST['question'];
 				$sql = "INSERT INTO noncoding_question VALUES (0, '$question', 0, '$title', '$category', 1, 1)";
 		        $result = mysqli_query($con, $sql);
 

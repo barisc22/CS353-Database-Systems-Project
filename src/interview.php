@@ -1,6 +1,6 @@
 <?php
 include "config.php";
-$c_id = $_SESSION["Id"];
+$c_id = 13;//$_SESSION["Id"];
 if(isset($_POST['solution'])){
 	$solution =  $_POST['solution'];
 
@@ -27,41 +27,41 @@ if(isset($_POST['solution'])){
 								$question = $_POST['question'];
 								$test_case = $_POST['test_case'];
 
-						       	$sql = "INSERT INTO coding_challenge VALUES (0, 2, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
-						        $result = mysqli_query($con, $sql);
-
 						     	$sql = "SELECT interview_id  FROM interview WHERE interview_id =(SELECT max(interview_id) FROM interview)";
 						        $result = mysqli_query($con, $sql);
 								$row = mysqli_fetch_assoc($result);
 								$interview_id = implode(",", $row);
 								$interview_id = (int)$interview_id;
 
-						       	$sql = "SELECT challenge_id  FROM coding_challenge WHERE challenge_id =(SELECT max(challenge_id) FROM coding_challenge)";
-						        $result = mysqli_query($con, $sql);
-								$row = mysqli_fetch_assoc($result);
-								$challenge_id = implode(",", $row);
-
-								$sql = "SELECT question_id   FROM noncoding_question WHERE question_id  =(SELECT max(question_id) FROM noncoding_question)";
-						        $result = mysqli_query($con, $sql);
-								$row = mysqli_fetch_assoc($result);
-								$question_id = implode(",", $row);
-
 						        if($type == "challenge"){
+							        $sql = "INSERT INTO coding_challenge VALUES (0, 2, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
+							        $result = mysqli_query($con, $sql);
+
+									$sql = "SELECT challenge_id  FROM coding_challenge WHERE challenge_id =(SELECT max(challenge_id) FROM coding_challenge)";
+							        $result = mysqli_query($con, $sql);
+									$row = mysqli_fetch_assoc($result);
+									$challenge_id = implode(",", $row);
+
 							       	$sql = "INSERT INTO consists_of VALUES ('$interview_id', '$challenge_id')";
 							        $result = mysqli_query($con, $sql);
 
 						        }else{
-							       	$sql = "INSERT INTO includes VALUES ('$interview_id', '$question_id')";
+									$sql = "INSERT INTO noncoding_question VALUES (0, '$question', 0, '$title', '$category', 1, 0)";
+							        $result = mysqli_query($con, $sql);
+
+							        $sql = "SELECT question_id   FROM noncoding_question WHERE question_id  =(SELECT max(question_id) FROM noncoding_question)";
+							        $result = mysqli_query($con, $sql);
+									$row = mysqli_fetch_assoc($result);
+									$question_id = implode(",", $row);
+
+								    $sql = "INSERT INTO includes VALUES ('$interview_id', '$question_id')";
 							        $result = mysqli_query($con, $sql);
 						        }
 
-							}else if(isset($_POST['bok'])){
+							}else if(isset($_POST['save'])){
 								$question = $_POST['question'];
 								$test_case = $_POST['test_case'];
-								$sql = "INSERT INTO interview VALUES (0, c_id, 'Hop', 'Bok', '$start_date', $end_date, '$duration')";
-						        $result = mysqli_query($con, $sql);
-
-						       	$sql = "INSERT INTO coding_challenge VALUES (0, 2, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
+								$sql = "INSERT INTO interview VALUES (0, '$c_id', 'Hop', 'Hop', '$start_date', $end_date, '$duration')";
 						        $result = mysqli_query($con, $sql);
 
 						     	$sql = "SELECT interview_id  FROM interview WHERE interview_id =(SELECT max(interview_id) FROM interview)";
@@ -69,25 +69,31 @@ if(isset($_POST['solution'])){
 								$row = mysqli_fetch_assoc($result);
 								$interview_id = implode(",", $row);
 
-						       	$sql = "SELECT challenge_id  FROM coding_challenge WHERE challenge_id =(SELECT max(challenge_id) FROM coding_challenge)";
-						        $result = mysqli_query($con, $sql);
-								$row = mysqli_fetch_assoc($result);
-								$challenge_id = implode(",", $row);
-
-								$sql = "SELECT question_id   FROM noncoding_question WHERE question_id  =(SELECT max(question_id) FROM noncoding_question)";
-						        $result = mysqli_query($con, $sql);
-								$row = mysqli_fetch_assoc($result);
-								$question_id = implode(",", $row);
-
 						        if($type == "challenge"){
+						        	$sql = "INSERT INTO coding_challenge VALUES (0, 2, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
+						        	$result = mysqli_query($con, $sql);
+
+						        	$sql = "SELECT challenge_id  FROM coding_challenge WHERE challenge_id =(SELECT max(challenge_id) FROM coding_challenge)";
+							        $result = mysqli_query($con, $sql);
+									$row = mysqli_fetch_assoc($result);
+									$challenge_id = implode(",", $row);
+
 							       	$sql = "INSERT INTO consists_of VALUES ('$interview_id', '$challenge_id')";
 							        $result = mysqli_query($con, $sql);
 
 						        }else{
+						        	$sql = "INSERT INTO noncoding_question VALUES (0, '$question', 0, '$title', '$category', 1, 0)";
+							        $result = mysqli_query($con, $sql);
+
+						        	$sql = "SELECT question_id   FROM noncoding_question WHERE question_id  =(SELECT max(question_id) FROM noncoding_question)";
+							        $result = mysqli_query($con, $sql);
+									$row = mysqli_fetch_assoc($result);
+									$question_id = implode(",", $row);
+
 							       	$sql = "INSERT INTO includes VALUES ('$interview_id', '$question_id')";
 							        $result = mysqli_query($con, $sql);
 						        }
-						    }
+						    }						    
 						}
 					}
 				}
@@ -156,14 +162,6 @@ if(isset($_POST['solution'])){
 	  <option value="c3">C3</option>
 	  <option value="c4">C4</option>
 	</select> 
-
-	<select name = "question_count">
-	 <option value="question_count">Select Question Count</option>
-	  <option value="one">1</option>
-	  <option value="two">2</option>
-	  <option value="three">3</option>
-	  <option value="four">4</option>
-	</select> 
 	</div>
 
 	
@@ -181,7 +179,7 @@ if(isset($_POST['solution'])){
 
 	<input class="w3-input w3-border w3-padding w3-round-xxlarge" name = "solution" type="text" placeholder="Solution" id="solution" style="width: 40%; height: 130px; margin-left: 15%; margin-top: 0%;">
 
-	<input class="w3-button w3-purple w3-round-large" type="submit" name = "bok" value = "Save" style="width: 5%; height: 30px; margin-left: 55%; margin-top: -5%;">
+	<input class="w3-button w3-purple w3-round-large" type="submit" name = "save" value = "Save" style="width: 5%; height: 30px; margin-left: 55%; margin-top: -5%;">
 
 	<input class="w3-button w3-purple w3-round-large" type="submit" value = "Add Question" name = "add" style="margin-top: -5%;">
 	</form>

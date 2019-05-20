@@ -3,59 +3,75 @@ include "config.php";
 if(isset($_POST['solution'])){
 	$solution =  $_POST['solution'];
 
-	if(isset($_POST['category'])){
-		$category =  $_POST['category'];
+	if(isset($_POST['test_case'])){
+		$test_case =  $_POST['test_case'];
 
-		if(isset($_POST['start_date']) && isset($_POST['end_date'])){
-			$start_date =  $_POST['start_date'];
-			$end_date =  $_POST['end_date'];
+		if(isset($_POST['category'])){
+			$category =  $_POST['category'];
 
-			if(isset($_POST['title'])){
-				$title =  $_POST['title'];
+			if(isset($_POST['start_date']) && isset($_POST['end_date'])){
+				$start_date =  $_POST['start_date'];
+				$end_date =  $_POST['end_date'];
 
-				if(isset($_POST['difficulty'])){
-					$difficulty =  $_POST['difficulty'];
+				if(isset($_POST['title'])){
+					$title =  $_POST['title'];
 
-					if(isset($_POST['save'])){
-						$question = $_POST['question'];
-						$test_case = $_POST['test_case'];
-						$sql = "INSERT INTO coding_contest VALUES (0, '$start_date', $end_date, '$title')";
-				        $result = mysqli_query($con, $sql);
+					if(isset($_POST['difficulty'])){
+						$difficulty =  $_POST['difficulty'];
 
-				       	$sql = "INSERT INTO coding_challenge VALUES (0, 1, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
-				        $result = mysqli_query($con, $sql);
+						if(isset($_POST['save'])){
+							$question = $_POST['question'];
+							$test_case = $_POST['test_case'];
+							$sql = "INSERT INTO coding_contest VALUES (0, '$start_date', $end_date, '$title')";
+					        $result = mysqli_query($con, $sql);
 
-				       	$sql = "SELECT challenge_id  FROM coding_challenge WHERE challenge_id =(SELECT max(challenge_id) FROM coding_challenge)";
-				        $result = mysqli_query($con, $sql);
-						$row = mysqli_fetch_assoc($result);
-						$challenge_id = implode(",", $row);
+					       	$sql = "INSERT INTO coding_challenge VALUES (0, 2, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
+					        $result = mysqli_query($con, $sql);
 
-						$sql = "SELECT contest_id   FROM coding_contest WHERE contest_id  =(SELECT max(contest_id) FROM coding_contest)";
-				        $result = mysqli_query($con, $sql);
-						$row = mysqli_fetch_assoc($result);
-						$contest_id = implode(",", $row);
+					       	$sql = "SELECT challenge_id  FROM coding_challenge WHERE challenge_id =(SELECT max(challenge_id) FROM coding_challenge)";
+					        $result = mysqli_query($con, $sql);
+							$row = mysqli_fetch_assoc($result);
+							$challenge_id = implode(",", $row);
 
-				       	$sql = "INSERT INTO contest_question VALUES ('$challenge_id', '$contest_id')";
-				        $result = mysqli_query($con, $sql);
-					}else if (isset($_POST['add'])){
-						$question = $_POST['question'];
-						$test_case = $_POST['test_case'];
+							$sql = "SELECT contest_id   FROM coding_contest WHERE contest_id  =(SELECT max(contest_id) FROM coding_contest)";
+					        $result = mysqli_query($con, $sql);
+							$row = mysqli_fetch_assoc($result);
+							$contest_id = implode(",", $row);
 
-				       	$sql = "INSERT INTO coding_challenge VALUES (0, 1, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
-				        $result = mysqli_query($con, $sql);
+							$sql = "INSERT INTO test_cases VALUES ('$challenge_id', '$test_case')";
+				        	$result = mysqli_query($con, $sql);
 
-				       	$sql = "SELECT challenge_id  FROM coding_challenge WHERE challenge_id =(SELECT max(challenge_id) FROM coding_challenge)";
-				        $result = mysqli_query($con, $sql);
-						$row = mysqli_fetch_assoc($result);
-						$challenge_id = implode(",", $row);
+					       	$sql = "INSERT INTO contest_question VALUES ('$challenge_id', '$contest_id')";
+					        $result = mysqli_query($con, $sql);
+						}else if (isset($_POST['add'])){
 
-						$sql = "SELECT contest_id   FROM coding_contest WHERE contest_id  =(SELECT max(contest_id) FROM coding_contest)";
-				        $result = mysqli_query($con, $sql);
-						$row = mysqli_fetch_assoc($result);
-						$contest_id = implode(",", $row);
+							$question = $_POST['question'];
+							$test_case = $_POST['test_case'];
 
-				       	$sql = "INSERT INTO contest_question VALUES ('$challenge_id', '$contest_id')";
-				        $result = mysqli_query($con, $sql);
+							$sql = "SELECT challenge_id  FROM coding_challenge WHERE challenge_id =(SELECT max(challenge_id) FROM coding_challenge)";
+					        $result = mysqli_query($con, $sql);
+							$row = mysqli_fetch_assoc($result);
+							$challenge_id = implode(",", $row);
+
+					       	$sql = "INSERT INTO coding_challenge VALUES (0, 2, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
+					        $result = mysqli_query($con, $sql);
+
+					       	$sql = "SELECT challenge_id  FROM coding_challenge WHERE challenge_id =(SELECT max(challenge_id) FROM coding_challenge)";
+					        $result = mysqli_query($con, $sql);
+							$row = mysqli_fetch_assoc($result);
+							$challenge_id = implode(",", $row);
+
+							$sql = "SELECT contest_id   FROM coding_contest WHERE contest_id  =(SELECT max(contest_id) FROM coding_contest)";
+					        $result = mysqli_query($con, $sql);
+							$row = mysqli_fetch_assoc($result);
+							$contest_id = implode(",", $row);
+
+							$sql = "INSERT INTO test_cases VALUES ('$challenge_id', '$test_case')";
+				        	$result = mysqli_query($con, $sql);
+
+					       	$sql = "INSERT INTO contest_question VALUES ('$challenge_id', '$contest_id')";
+					        $result = mysqli_query($con, $sql);
+						}
 					}
 				}
 			}
