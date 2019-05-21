@@ -27,6 +27,21 @@ function validate()
 {
 	echo" doing thism";
 }
+
+function logout()
+
+  {
+    //echo "going back";
+      $_SESSION['Id'] = NULL;
+      header('Location:login.php');
+  }
+
+//logout
+if(array_key_exists('logout', $_POST))
+    {
+      logout();
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -141,9 +156,14 @@ function validate()
 			<br>
 			<img src="images/user1.png" style="width: 50%; height: 100%; padding-top: 50px;">
 			<p><label>Name : <?php echo "$name" ?></label>
-				<p><label>Challenge # : <?php echo "$q1" ?></label>
+				<p><label>Question # : <?php echo "$q1" ?></label>
 			<p><label style="background-color: red">Penalty Points: <?php echo "$points" ?></label>
 			<br><br><br><br><br><br><br><br><br><br><br><br><br>
+<div >
+ 	<form method='post' action="">
+            <input type="submit" value="LOGOUT" class="w3-button w3-purple w3-round-large" name="logout"/>
+        </form>
+	</div>
 			
 			
 

@@ -29,6 +29,20 @@ else if (isset($_POST['decision']))
 	//notify decision
 }
 
+function logout()
+
+  {
+    //echo "going back";
+      $_SESSION['Id'] = NULL;
+      header('Location:login.php');
+  }
+
+//logout
+if(array_key_exists('logout', $_POST))
+    {
+      logout();
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -273,6 +287,11 @@ $(document).ready(function(){
 			<ul class="w3-ul w3-margin-top" style="height: 250px; margin: auto; overflow: auto;">
 				<input type="submit" name="leader"  class="w3-button w3-purple w3-round-large" value = "LEADERBOARD">
 			</ul>
+<div >
+ 	<form method='post' action="">
+            <input type="submit" value="LOGOUT" class="w3-button w3-purple w3-round-large" name="logout"/>
+        </form>
+	</div>
 		</div>
 	</div>
 </form>

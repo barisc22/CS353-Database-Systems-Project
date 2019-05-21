@@ -9,6 +9,21 @@ $profilegen = "select * from general_user where id = '".$usId."'";
 $profileus = "select * from user where id = '".$usId."'";
 
 }
+
+function logout()
+
+  {
+    //echo "going back";
+      $_SESSION['Id'] = NULL;
+      header('Location:login.php');
+  }
+
+//logout
+if(array_key_exists('logout', $_POST))
+    {
+      logout();
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -191,6 +206,12 @@ function change()
 <div id="contact"><button type="button" class="w3-button w3-purple w3-round-large" data-toggle="modal" data-target="#contact-modal">EDIT PROFILE</button></div>
 <br>
 <div id="contact2"><button type="button" class="w3-button w3-purple w3-round-large" data-toggle="modal" data-target="#contact-modal2">CHANGE PASSWORD</button></div>
+<br>
+<div >
+ 	<form method='post' action="">
+            <input type="submit" value="LOGOUT" class="w3-button w3-purple w3-round-large" name="logout"/>
+        </form>
+	</div>
 
 </div>
 
@@ -255,6 +276,7 @@ function change()
     </div>
   </div>
 </div>
+
 </body>
 </html>
 
