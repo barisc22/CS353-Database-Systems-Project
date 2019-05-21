@@ -35,7 +35,7 @@ if(isset($_POST['grade'])){
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" type="text/css" href="../codeint/styles/w3.css">
-	<title>CodeInt - CV Pool</title>
+	<title>CodeInt - Check Question</title>
 	<style>
 	/* width */
 	::-webkit-scrollbar {
