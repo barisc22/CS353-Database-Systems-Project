@@ -22,7 +22,7 @@ if(isset($_POST['solution'])){
 						if(isset($_POST['save'])){
 							$question = $_POST['question'];
 							$test_case = $_POST['test_case'];
-							$sql = "INSERT INTO coding_contest VALUES (0, '$start_date', $end_date, '$title')";
+							$sql = "INSERT INTO coding_contest VALUES (0, '$start_date', '$end_date', '$title')";
 					        $result = mysqli_query($con, $sql);
 
 					       	$sql = "INSERT INTO coding_challenge VALUES (0, 2, '$question', 0, '$difficulty', '$title', '$solution', '$category')";
