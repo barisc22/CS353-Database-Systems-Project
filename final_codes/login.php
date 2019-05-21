@@ -124,7 +124,7 @@ function validate()
 
 </script>
 
-	<title>Login</title>
+	<title>CodeInt - Login</title>
 	<meta charset="UTF-8">
 
 </head>
