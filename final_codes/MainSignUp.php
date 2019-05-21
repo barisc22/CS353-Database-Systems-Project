@@ -16,7 +16,9 @@
 
 <!doctype html>
 <html>
-<head></head>
+<head>
+	<title>CodeInt - Main Sign Up</title>
+</head>
     <body>
     	<div align ="center" class="title">
     	<p2> Choose Account Type </p2>
