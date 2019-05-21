@@ -61,7 +61,7 @@ if(isset($_POST['solution'])){
 							}else if(isset($_POST['save'])){
 								$question = $_POST['question'];
 								$test_case = $_POST['test_case'];
-								$sql = "INSERT INTO interview VALUES (0, '$c_id', 'Hop', 'Hop', '$start_date', $end_date, '$duration')";
+								$sql = "INSERT INTO interview VALUES (0, '$c_id', 'Hop', 'Hop', '$start_date', '$end_date', '$duration')";
 						        $result = mysqli_query($con, $sql);
 
 						     	$sql = "SELECT interview_id  FROM interview WHERE interview_id =(SELECT max(interview_id) FROM interview)";
