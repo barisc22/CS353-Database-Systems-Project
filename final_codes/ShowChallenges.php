@@ -48,7 +48,7 @@ include "config.php";
     <input class="w3-input w3-border w3-padding w3-round-xxlarge" type="text" placeholder="Search for challenges..." id="challengeInput" onkeyup="searchChallenge()" style="width: 45%; margin: auto; ">
 
     <table id="challengeTable" align="center" cellspacing="20">
-        <tr><th>Title</th><th>Category</th><th>Difficulty</th><th>Percentage</th></tr>
+        <tr><th>Title</th><th>Category</th><th>Difficulty</th></tr>
         <?php
             $sql = "SELECT challenge_id, title, category, difficulty FROM coding_challenge";
             $result = mysqli_query($con, $sql);
@@ -78,7 +78,7 @@ include "config.php";
     <input class="w3-input w3-border w3-padding w3-round-xxlarge" type="text" placeholder="Search for questions..." id="questionInput" onkeyup="searchQuestion()" style="width: 45%; margin: auto; ">
 
     <table id="questionTable" align="center" cellspacing="20">
-        <tr><th>Title</th><th>Category</th><th>Reward</th><th>Percentage</th></tr>
+        <tr><th>Title</th><th>Category</th><th>Reward</th></tr>
         <?php
         $sql = "SELECT question_id, title, category, reward FROM noncoding_question";
         $result = mysqli_query($con, $sql);
