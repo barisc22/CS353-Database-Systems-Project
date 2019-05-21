@@ -58,6 +58,8 @@ if($count == 0){
 <html lang="en">
 
 <head>
+	<title>CodeInt - User Sign Up</title>
+</head>
     <!--
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
