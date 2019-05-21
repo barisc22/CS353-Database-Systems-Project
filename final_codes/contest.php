@@ -98,7 +98,7 @@ if(array_key_exists('getback', $_POST))
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" type="text/css" href="styles/w3.css">
-	<title>CodeInt - Prepare Contest</title>
+	<title>Prepare Question</title>
 
 	<style>
 	.blocktext {
@@ -142,10 +142,10 @@ if(array_key_exists('getback', $_POST))
 
 	<select name = "category">
 	 <option value="category">Select Category</option>
-	  <option value="c1">C1</option>
-	  <option value="c2">C2</option>
-	  <option value="c3">C3</option>
-	  <option value="c4">C4</option>
+	  <option value="Algorithms"> Algorithms </option>
+	  <option value="Data Structures">Data Structures</option>
+	  <option value="Basic Programming">Basic Programming</option>
+	  <option value="Databases"> Databases</option>
 	</select> 
 </div>
 

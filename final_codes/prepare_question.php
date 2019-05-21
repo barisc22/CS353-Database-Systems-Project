@@ -92,10 +92,10 @@ if(array_key_exists('getback', $_POST))
 
 	<select name = "category">
 	 <option value="category">Select Category</option>
-	  <option value="c1">C1</option>
-	  <option value="c2">C2</option>
-	  <option value="c3">C3</option>
-	  <option value="c4">C4</option>
+	  <option value="Algorithms"> Algorithms </option>
+	  <option value="Data Structures">Data Structures</option>
+	  <option value="Basic Programming">Basic Programming</option>
+	  <option value="Databases"> Databases</option>
 	</select> 
 
 	</div>
