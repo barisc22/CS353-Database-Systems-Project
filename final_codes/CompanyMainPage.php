@@ -37,6 +37,9 @@ else if (isset($_POST['decision']))
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" type="text/css" href="styles/w3.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<title>CodeInt - Company Main Page</title>
 	<style>
 	/* width */
@@ -59,6 +62,18 @@ else if (isset($_POST['decision']))
 	  background: #000; 
 	}
 	</style>
+	<script type='text/javascript'>
+		
+$(document).ready(function(){ 
+  $("#contactForm").submit(function(event){
+    submitForm();
+    return false;
+
+  });
+
+
+
+});</script>
 </head>
 <body>
 	<div class="w3-container" style="position: fixed; width:100%; max-height: 15%; padding:10px; margin: auto; float: left; background-color: rgb(255,255,255);">
@@ -123,7 +138,7 @@ else if (isset($_POST['decision']))
                     <?php
                     $sql = "SELECT A.user_id, G.username, A.job_title FROM applies A NATURAL JOIN general_user G WHERE A.c_id = '$compId' AND G.id = A.user_id";
                     $result = mysqli_query($con, $sql);
-                    echo "<table id=\"bok\" align=\"center\" cellspacing=\"20\">";
+                    echo "<table id=\"table1\" align=\"center\" cellspacing=\"20\">";
                     echo "<tr><th>User</th><th>Job Title</th></tr>";
                     while($row = $result->fetch_assoc()) {
                         $username = $row["username"];
@@ -137,45 +152,7 @@ else if (isset($_POST['decision']))
                     }
                     echo "</table>";
 
-
-                    $finished2= "select interview_id from interview where c_id = '".$compId."'";
-                    $result = mysqli_query($con,$finished);
-                    if(mysqli_num_rows($result) > 0){
-                        while ($row = mysqli_fetch_assoc($result))
-                        {
-                            $int_id2 = $row['interview_id'];
-                            //echo $int_id;
-                            $finished2 = "select end_date from interview where c_id = '".$compId."'";
-                            $result0 = mysqli_query($con,$finished2);
-                            $ro0w = mysqli_fetch_assoc($result0);
-                            $enddate = $ro0w['end_date'];
-
-                            $que2= "select user_id, grade from solves where interview_id = '".$int_id2."'";
-
-                            $result3 = mysqli_query($con,$que2);
-
-                            while($row3 = mysqli_fetch_assoc($result3)){
-
-                                // $end = $row2['end_date'];
-                                //echo $grade2;
-                                $grade2 = $row3['grade'];
-                                $userid = $row3['user_id'];
-                                //echo $userid;
-                                $que4 = "select username as choose from general_user where id = '".$userid."'";
-                                $res =  mysqli_query($con,$que4);
-
-
-                                $row1 = mysqli_fetch_array($res);
-                                $userN = $row1['choose'];
-                                if($grade2 <= 0){
-
-                                    echo "<p><li class= \"w3-border\" style=\"width: 30%; display: inline-block;\">".$userN. "<li class= \"w3-border\" style=\"width: 30%; display: inline-block;\">".$enddate. "</li>";
-                                }
-                            }
-                        }
-                    }
-                    else
-                        echo "No result";
+      
                     ?>
 
                 </ul>
@@ -198,7 +175,8 @@ else if (isset($_POST['decision']))
 								$que2= "select user_id, grade from solves where interview_id = '".$int_id2."'";
 
 								 $result3 = mysqli_query($con,$que2);
-
+								    echo "<table id=\"table1\" align=\"center\" cellspacing=\"20\">";
+                    echo "<tr><th>User</th><th>End Date</th></tr>";
 								 while($row3 = mysqli_fetch_assoc($result3)){
 								 
 								// $end = $row2['end_date'];
@@ -214,11 +192,18 @@ else if (isset($_POST['decision']))
        						  $userN = $row1['choose'];
        						  if($grade2 <= 0){
        						
-       						echo "<p><li class= \"w3-border\" style=\"width: 30%; display: inline-block;\">".$userN. "<li class= \"w3-border\" style=\"width: 30%; display: inline-block;\">".$enddate. "</li>"; 
+       						echo "<tr>
+                                <td>".$userN."</td>
+                                <td>".$enddate."</td>
+                              
+                              </tr>";
+
+                    }
+                    echo "</table>";
        					}
        						}
 							}
-						}
+						
 						else 
 							echo "No result";
 						?>
@@ -261,11 +246,13 @@ else if (isset($_POST['decision']))
        						  if($grade2 <= 0){
        						$enddate = "NOTIFY";
        						echo "<p><li class= \"w3-border\" style=\"width: 30%; display: inline-block;\">".$userN. "</li>
-       						<input type=\"submit\" name = \"grade\"class=\"w3-button w3-purple w3-round-large\" value = ".$enddate. "  style=\" display: inline-block;\"></p>"; 
-       					}else if($grade2 > 0){
+       					<input type=\"button\" class=\"w3-button w3-purple w3-round-large\" id = \" contact\" value = ".$enddate. "  data-toggle=\"modal\" data-target=\"#contact-modal\"></p>"; 
+       				}
+
+       					else if($grade2 > 0){
        						$enddate = "NOTIFY";
        						echo "<p><li class= \"w3-border\" style=\"width: 30%; display: inline-block;\">".$userN. "</li>
-       						<input type=\"submit\" name = \"decision\"class=\"w3-button w3-purple w3-round-large\" value = ".$enddate. "  style=\" display: inline-block;\"></p>"; 
+       						<input type=\"button\" class=\"w3-button w3-purple w3-round-large\" id = \" contact\" value = ".$enddate. "  data-toggle=\"modal\" data-target=\"#contact-modal\"></p>"; 
        					}
        						}
 							}
@@ -290,7 +277,49 @@ else if (isset($_POST['decision']))
 	</div>
 </form>
 
-
+<div id="contact-modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h3>NOTIFY USER</h3>
+      </div>
+      <form id="contactForm" name="contact" role="form">
+        <div class="modal-body">        
+          <div class="form-group">
+            <label for="name">UserName</label>
+            <input type="text" name="name" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea name="message" class="form-control"></textarea>
+          </div>          
+        </div>
+        <div class="modal-footer">          
+          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.href=window.location.href" >Close</button>
+          <input type="submit" value="SEND" class="btn btn-success" id="submit" onclick="window.location.href=window.location.href" >
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
+<style>
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+	</style>
