@@ -31,7 +31,7 @@ if($result = mysqli_query($con,$sql_Q) )
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Create CvPool</title>
+	<title>CodeInt - Create CV Pool</title>
 </head>
 <body>
 
