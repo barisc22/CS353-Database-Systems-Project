@@ -68,7 +68,18 @@ if(isset($_POST['mult_answers'])){
 		}
 	}
 }
+function goBack()
 
+  {
+    //echo "going back";
+      header('Location:userMainPage.php');
+  }
+
+//logout
+if(array_key_exists('getback', $_POST))
+    {
+      goBack();
+    }
 
 ?>
 <!DOCTYPE html>
@@ -143,6 +154,11 @@ if(isset($_POST['mult_answers'])){
 			</div>
 			<br>
 		</div>
+<div >
+ 	<form method='post' action="">
+            <input type="submit" value="Return" class="but1" name="getback"/>
+        </form>
+	</div>
 </body>
 </html>
 	
