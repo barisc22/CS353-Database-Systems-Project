@@ -141,7 +141,7 @@ function validate()
 			<br>
 			<img src="images/user1.png" style="width: 50%; height: 100%; padding-top: 50px;">
 			<p><label>Name : <?php echo "$name" ?></label>
-				<p><label>Question # : <?php echo "$q1" ?></label>
+				<p><label>Challenge # : <?php echo "$q1" ?></label>
 			<p><label style="background-color: red">Penalty Points: <?php echo "$points" ?></label>
 			<br><br><br><br><br><br><br><br><br><br><br><br><br>
 			
