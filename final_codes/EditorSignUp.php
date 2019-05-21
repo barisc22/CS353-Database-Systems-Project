@@ -57,7 +57,7 @@ $email = $_POST['email'];
 <html lang="en">
 
 <head>
-   
+   <title>CodeInt - Editor Sign Up</title>
 </head>
 
 <body>
